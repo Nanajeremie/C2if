@@ -1,0 +1,36 @@
+.logo1{
+    height: 50px;
+    width: 110px;
+}
+.bouton{
+    background-color: #997711 !important;
+    color: azure;
+}
+.bouton:hover{
+    background-color: #baa311 !important;
+    color: azure !important;
+}
+.gras{
+    font-weight: bold;
+}
+.hauteur{
+    margin-top: -100px !important;
+}
+@media(Max-width: 750px){
+    .bouton{
+        display:none;
+    }
+}
+.layer{
+    overflow: hidden !important;
+    max-height: 70% !important;
+}
+.image{
+    height:300px !important;
+}
+.taille{
+    height: 400px !important;
+}
+.bord{
+    border: 1px solid rgba(0,0,0,0.4) !important;
+}
