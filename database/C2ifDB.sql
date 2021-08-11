@@ -19,7 +19,7 @@ drop table if exists SUBJECT;
 
 drop table if exists TEST;
 
-drop table if exists USER;
+drop table if exists USERS;
 
 
 /*==============================================================*/
@@ -33,7 +33,7 @@ create table ADMIN
    ADMINFIRTNAME                  varchar(50),
    ROLE                           varchar(40),
     primary key (IDADMIN)
-);
+)ENGINE=InnoDB CHARACTER SET utf8;
 
 /*==============================================================*/
 /* Table: ANNOUCEMENT                                           */
@@ -47,7 +47,7 @@ create table ANNOUCEMENT
    COVERIMAGE                     varchar(50),
    POSTDATE                       timestamp,
    primary key (IDANNOUNCEMENT)
-);
+)ENGINE=InnoDB CHARACTER SET utf8;
 
 /*==============================================================*/
 /* Table: ANSWER                                                */
@@ -62,7 +62,7 @@ create table ANSWER
    ANSWERCONTENT                  varchar(20),
    MARK                           decimal,
    primary key (IDANSWER)
-);
+)ENGINE=InnoDB CHARACTER SET utf8;
 
 /*==============================================================*/
 /* Table: COMMENT                                               */
@@ -75,7 +75,7 @@ create table COMMENT
    CONTENT                        longtext,
    COMMENTDATE                    timestamp,
    primary key (IDCOMMENT)
-);
+)ENGINE=InnoDB CHARACTER SET utf8;
 
 /*==============================================================*/
 /* Table: COURSE                                                */
@@ -91,7 +91,7 @@ create table COURSE
    COURSEDESCRIPTION              longtext,
    UPLOADDATE                     timestamp,
    primary key (IDCOURSE)
-);
+)ENGINE=InnoDB CHARACTER SET utf8;
 
 /*==============================================================*/
 /* Table: LEARNER                                               */
@@ -99,12 +99,11 @@ create table COURSE
 create table LEARNER
 (
    MATRICULE                      char(40)                       not null,
-   IDUSER                         int  ,
    LASTNAMEN                      varchar(50),
    LEARNERFIRSTNAME               varchar(30),
    STATUT                         varchar(23),
    primary key (MATRICULE)
-);
+)ENGINE=InnoDB CHARACTER SET utf8;
 
 /*==============================================================*/
 /* Table: NEWLETTER                                             */
@@ -115,7 +114,7 @@ create table NEWLETTER
    MATRICULE                      char(40)                       not null,
    EMAILADRESS                    varchar(24),
    primary key (IDNEWS)
-);
+)ENGINE=InnoDB CHARACTER SET utf8;
 
 /*==============================================================*/
 /* Table: SUBCRIPTION                                           */
@@ -129,7 +128,7 @@ create table SUBCRIPTION
    SUBSCRIPTIONDATE               timestamp,
    READINGPAGE                    int,
    primary key (IDSUBCRIPTION)
-);
+)ENGINE=InnoDB CHARACTER SET utf8;
 
 /*==============================================================*/
 /* Table: SUBJECT                                               */
@@ -140,7 +139,7 @@ create table SUBJECT
    SUBJECTNAME                    varchar(30),
    SUBJECTIMAGE                   varchar(64),
    primary key (IDSUBJECT)
-);
+)ENGINE=InnoDB CHARACTER SET utf8;
 
 /*==============================================================*/
 /* Table: TEST                                                  */
@@ -153,60 +152,60 @@ create table TEST
    DURATION                       time,
    CORRECTION                     varchar(64),
    primary key (IDTEST)
-);
+)ENGINE=InnoDB CHARACTER SET utf8;
 
 
 /*==============================================================*/
-/* Table: USER                                                  */
+/* Table: USERS                                                  */
 /*==============================================================*/
-create table USER
+create table USERS
 (
    IDUSER                         int                            not null   AUTO_INCREMENT,
-   USERNAME                       varchar(30),
+   USERSNAME                       varchar(30),
    PASSWORD                       varchar(64),
    EMAIL                          varchar(20),
    TYPE                           varchar(30),
    IMAGEPROFILE                   varchar(30),
    primary key (IDUSER)
-);
+)ENGINE=InnoDB CHARACTER SET utf8;
 
 
 alter table ADMIN add constraint FK_EQUAL foreign key (IDUSER)
-      references USER on delete restrict on update restrict;
+      references USERS (IDUSER) on delete cascade on update cascade;
 
 alter table ANNOUCEMENT add constraint FK_POST foreign key (IDADMIN)
-      references ADMIN on delete restrict on update restrict;
+      references ADMIN (IDADMIN) on delete cascade on update cascade;
 
 alter table ANSWER add constraint FK_CONCERNE foreign key (IDTEST)
-      references TEST (IDTEST) on delete restrict on update restrict;
+      references TEST (IDTEST) on delete cascade on update cascade;
 
 alter table ANSWER add constraint FK_SEND foreign key (MATRICULE)
-      references LEARNER (MATRICULE) on delete restrict on update restrict;
+      references LEARNER (MATRICULE) on delete cascade on update cascade;
 
 alter table COMMENT add constraint FK_MAKE foreign key (IDUSER)
-      references USER on delete restrict on update restrict;
+      references USERS (IDUSER) on delete cascade on update cascade;
 
 alter table COMMENT add constraint FK_RELATED_TO foreign key (IDCOURSE)
-      references COURSE (IDCOURSE) on delete restrict on update restrict;
+      references COURSE (IDCOURSE) on delete cascade on update cascade;
 
 alter table COURSE add constraint FK_LINK foreign key (IDSUBJECT)
-      references SUBJECT (IDSUBJECT) on delete restrict on update restrict;
+      references SUBJECT (IDSUBJECT) on delete cascade on update cascade;
 
 alter table COURSE add constraint FK_UPLOAD foreign key (IDADMIN)
-      references ADMIN on delete restrict on update restrict;
+      references ADMIN (IDADMIN) on delete cascade on update cascade;
 
 alter table LEARNER add constraint FK_IS foreign key (IDUSER)
-      references USER on delete restrict on update restrict;
+      references USERS(IDUSER) on delete cascade on update cascade;
 
 alter table NEWLETTER add constraint FK_REGISTER foreign key (MATRICULE)
-      references LEARNER (MATRICULE) on delete restrict on update restrict;
+      references LEARNER (MATRICULE) on delete cascade on update cascade;
 
 alter table SUBCRIPTION add constraint FK_DO foreign key (MATRICULE)
-      references LEARNER (MATRICULE) on delete restrict on update restrict;
+      references LEARNER (MATRICULE) on delete cascade on update cascade;
 
 alter table SUBCRIPTION add constraint FK_IS_FOR foreign key (IDCOURSE)
-      references COURSE (IDCOURSE) on delete restrict on update restrict;
+      references COURSE (IDCOURSE) on delete cascade on update cascade;
 
 alter table TEST add constraint FK_HAVE foreign key (IDCOURSE)
-      references COURSE (IDCOURSE) on delete restrict on update restrict;
+      references COURSE (IDCOURSE) on delete cascade on update cascade;
 
