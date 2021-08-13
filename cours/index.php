@@ -2,23 +2,21 @@
 include("../utilities/QueryBuilder.php");
 $obj = new QueryBuilder();
 $error = '';
-var_dump(md5(123));
 //if the submit button is clicked
 if(isset($_POST["submit"]))
 {
     extract($_POST);
-    //hasing the password
-    $password = md5($password);
     //if the button 'remember me' is on
     $cookies = [];
     if(isset($remember) AND $remember=='on')
     {
-        $cookies = ['USERNAME'=>'USERNAME', 'IDUSER'=>'IDUSER'];
+        $cookies = ['USERNAME'=>$username, 'PASSWORD'=>$password];
     }
+    //hasing the password
+    $password = md5($password);
     //checking if the user could be connected to the paltform
-    $connect = $obj->Connexion('users', array('USERNAME', 'PASSWORD'), array($username, $password), $return=array('TYPE'), $cookies = array('USERNAME'), $sessions=array('USERNAME'=>'USERNAME', 'IDUSER'=>'IDUSER'));
+    $connect = $obj->Connexion('users', array('USERNAME', 'PASSWORD'), array($username, $password), $return=array('TYPE'), $cookies = $cookies, $sessions=array('USERNAME'=>'USERNAME', 'IDUSER'=>'IDUSER'));
     //if the connection works
-    var_dump($connect);
     if(is_array($connect) AND count($connect)>0)
     {
         header('Location: cours.php');
@@ -45,8 +43,8 @@ if(isset($_POST["submit"]))
 </head>
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col-lg-6 mx-auto my-3">
+        <div class="row ">
+            <div class="col-lg-6 mx-auto my-5">
                 <div class="card cardBor">
                     <div class="card-header py-3 primeBack">
                         <h3 class="text-uppercase text-center text-light">Connexion</h3>
