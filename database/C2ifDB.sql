@@ -99,7 +99,8 @@ create table COURSE
 create table LEARNER
 (
    MATRICULE                      char(40)                       not null,
-   LASTNAMEN                      varchar(50),
+   IDUSER                         int  ,
+   LASTNAME                       varchar(50),
    LEARNERFIRSTNAME               varchar(30),
    STATUT                         varchar(23),
    primary key (MATRICULE)

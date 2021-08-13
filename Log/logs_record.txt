@@ -1,0 +1,13 @@
+0| 08/13/2021 00:53:01| Guest | INSERTION | username, $2y$10$5jljnZLz847CTxsPj1kPnOPuM/5lfQW/c6FL24GFhm4QolHrbZLQO, yaroemmanuelbekassoe@gmail.com, 71188386, learner| users
+1| 08/13/2021 00:53:02| Guest | INSERTION | learner420210813, 4, Yaro, Emmanuel| learner
+2| 08/13/2021 01:04:02| Guest | INSERTION | manu12, $2y$10$mwQOkXfLwpzQZLQd1B8CaOr.Sxy09YAiuiCv4G3Jl/xYfm.lM18S., yaroemmanuelbekassoe@gmail.com, 71188386, learner| users
+3| 08/13/2021 01:04:02| Guest | INSERTION | learner520210813, 5, Yaro, Emmanuel| learner
+4| 08/13/2021 08:05:08| Guest | Connexion | Connection Rejected| users
+5| 08/13/2021 08:05:52| Guest | Connexion | Connection Rejected| users
+6| 08/13/2021 08:06:38| Guest | Connexion | Connection Rejected| users
+7| 08/13/2021 08:06:59| Guest | Connexion | Connection Rejected| users
+8| 08/13/2021 08:07:26| Guest | Connexion | Connection Rejected| users
+9| 08/13/2021 08:07:56| Guest | Connexion | Connection Rejected| users
+10| 08/13/2021 08:08:45| Guest | Connexion | Connection Rejected| users
+11| 08/13/2021 08:10:12| Guest | Connexion | Connection Rejected| users
+12| 08/13/2021 08:10:28| Guest | Connexion | Connected Successfully| users

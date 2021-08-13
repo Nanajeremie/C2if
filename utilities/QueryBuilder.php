@@ -5,17 +5,17 @@ require 'utils.php';
 //fonction de connection a la base de donnees
 function getPdo()
 {
-    $pdo = new PDO("mysql:host=localhost;dbname=opensch", "root", "", [PDO:: MYSQL_ATTR_INIT_COMMAND =>"SET NAMES utf8", PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC]);
+    $pdo = new PDO("mysql:host=localhost;dbname=c2ifdb", "root", "", [PDO:: MYSQL_ATTR_INIT_COMMAND =>"SET NAMES utf8", PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC]);
 
     return $pdo;
 }
 //function to set the path for logs
-function getLogsPath()
+function getLogsPath($path)
 {
     //gets the root folder of the project
-    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR.$path;
     //adding separators function of the OS of the server
-    $path .= DIRECTORY_SEPARATOR.'Opensch_final_version'.DIRECTORY_SEPARATOR.'Web-Application-Coding'.DIRECTORY_SEPARATOR.'LOG'.DIRECTORY_SEPARATOR;
+    //$path .= DIRECTORY_SEPARATOR.'Opensch_final_version'.DIRECTORY_SEPARATOR.'Web-Application-Coding'.DIRECTORY_SEPARATOR.'LOG'.DIRECTORY_SEPARATOR;
     $path = Correct_sep($path);
     //gets the absolute path of the log folder
     $path = realpath($path);
@@ -64,7 +64,7 @@ class QueryBuilder
     public function __construct()
     {
     	$this->pdo = getPdo();
-        $this->path_for_logs = getLogsPath();
+        $this->path_for_logs = getLogsPath('/c2if/C2if/Log');
         $this->username = getUsername();
     }
 
@@ -512,10 +512,6 @@ class QueryBuilder
         try
         {
 
-            //On crypte le mot de passe :
-            //$motDePasseCrypt =  md5("mamy87".$motDePasse."papy15");
-            //On prépare la requête (entre autre contre les injections avec pdo->prepare)
-
             $sql = "SELECT * FROM ".$table." WHERE ";
             for ($i=0; $i < count($columns) ; $i++)
             {
@@ -572,16 +568,13 @@ class QueryBuilder
                     LogWrite($action = "Connexion", $this->username, $table, $values_for_logs= array("Connection Rejected") , $this->path_for_logs);
                 }
             }
-            
-            $req->closeCursor();
 
             return $check;
-
 
         }
         catch (Exception $e)
         {
-            $this->GetExceptionMessage($e->getMessage());
+            $this->GetExceptionMessage($e);
         }
     }
 
@@ -595,7 +588,7 @@ class QueryBuilder
         {
             //writing in log file
             //$values_for_logs will be void
-            LogWrite($action = "DECONNEXION", $this->username, $table = "user", $values_for_logs = array("---"), $this->path_for_logs);
+            LogWrite($action = "DECONNEXION", $this->username, $table = "users", $values_for_logs = array("---"), $this->path_for_logs);
         }
         foreach ($varsessions as $varsession)
         {

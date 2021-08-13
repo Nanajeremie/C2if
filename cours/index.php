@@ -1,6 +1,34 @@
 <?php 
-
- ?>
+include("../utilities/QueryBuilder.php");
+$obj = new QueryBuilder();
+$error = '';
+var_dump(md5(123));
+//if the submit button is clicked
+if(isset($_POST["submit"]))
+{
+    extract($_POST);
+    //hasing the password
+    $password = md5($password);
+    //if the button 'remember me' is on
+    $cookies = [];
+    if(isset($remember) AND $remember=='on')
+    {
+        $cookies = ['USERNAME'=>'USERNAME', 'IDUSER'=>'IDUSER'];
+    }
+    //checking if the user could be connected to the paltform
+    $connect = $obj->Connexion('users', array('USERNAME', 'PASSWORD'), array($username, $password), $return=array('TYPE'), $cookies = array('USERNAME'), $sessions=array('USERNAME'=>'USERNAME', 'IDUSER'=>'IDUSER'));
+    //if the connection works
+    var_dump($connect);
+    if(is_array($connect) AND count($connect)>0)
+    {
+        header('Location: cours.php');
+    }
+    else 
+    {
+        $error = 'Le mot de passe ou/et le nom d\'utilisateur sont incorrects';
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,27 +41,28 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="icon" href="assets/media/logo_bit.png">
+    <link rel="stylesheet" href="assets/css/errors.css">
 </head>
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 mx-auto my-5">
+            <div class="col-lg-6 mx-auto my-3">
                 <div class="card cardBor">
                     <div class="card-header py-3 primeBack">
                         <h3 class="text-uppercase text-center text-light">Connexion</h3>
                     </div>
-                    <div class="mt-2 col-12 text-center ">
-                        <?php 
-                            if (isset($getmsg)) {echo $getmsg;}else{if(isset($getUpdMsg)){echo $getUpdMsg;} } ;
-                            if(isset($annee_vide)){echo $annee_vide;};
-                        ?>
-                    </div>
+                   
                     <div class="card-body p-lg-4">
                         
-                        <form method="post" action="index.php">
-
+                        <form method="post" action="#" id="login">
+                            <?php
+                                if($error != '')
+                                {
+                                    echo '<div class="alert alert-danger text-center">'.$error.'</div>';
+                                }
+                            ?>
                             <div class="input-group py-3">
-                                <input class="form-control <?php if (isset($getmsg)): ?> border border-danger text-danger<?php endif ?> cardBor" type="text" name="login_username" id="login_username" placeholder="Nom d'utilisateur" value="<?php if(isset($_COOKIE['USERNAME']))
+                                <input class="form-control cardBor" type="text" name="username" id="username" placeholder="Nom d'utilisateur" value="<?php if(isset($_COOKIE['USERNAME']))
                                         {
                                             echo $_COOKIE['USERNAME'];
                                         }
@@ -41,10 +70,11 @@
                                 <div class="input-group-append">
                                     <span class=" input-group-text fas fa-user-alt  bg-light cardBor primeTxt"></span>
                                 </div>
+                                <div class="col-12"></div>
                             </div>
 
-                            <div class="input-group py-5">
-                                <input class="form-control <?php if (isset($getmsg)): ?> border border-danger  <?php endif ?> cardBor" type="password" name="login_password" id="login_password" placeholder="Mot de passe" value="<?php if(isset($_COOKIE['PASSWORD']))
+                            <div class="input-group py-3">
+                                <input class="form-control cardBor" type="password" name="password" id="password" placeholder="Mot de passe" value="<?php if(isset($_COOKIE['PASSWORD']))
                                         {
                                             echo $_COOKIE['PASSWORD'];
                                         }
@@ -52,16 +82,17 @@
                                 <div class="input-group-append">
                                     <span class=" input-group-text fas fa-lock bg-light cardBor primeTxt"></span>
                                 </div>
+                                <div class="col-12"></div>
                             </div>
 
                             <div class="row">
                                 <div class="col-6">
-                                    <label for="login_remember">
-                                        <input type="checkbox" class="primeTxt" name="login_remember" id="login_remember" > Se souvenir
+                                    <label for="remember">
+                                        <input type="checkbox" class="primeTxt" name="remember" id="remember"><label for="remember" class="ml-2 text-primary">Se souvenir</label>
                                     </label>
                                 </div>
                                 <div class="col-6 text-right">
-                                    <a class="text-info" href="mail/forgot_password.php">Mot de passe oublié?</a>
+                                    <a class="text-info" href="mail/forgot_password.php">Mot de passe oublié ?</a>
                                 </div>
 
                                 <div class="col-lg-12 py-5 text-center">
@@ -69,7 +100,7 @@
                                 </div> 
                             </div>
                         </form>
-                        <p class="h5">Si vous n'avez pas de compte créer un <a href="register.php" class="text-primary">ici</a> </p>
+                        <p class="h5">Si vous n'avez pas de compte, créez en un <a href="register.php" class="text-primary">ici</a> </p>
                     </div>
                 </div>
             </div>
@@ -78,3 +109,43 @@
 
 </body>
 </html>
+<script src="assets/js/jquery-3.4.0.min.js"></script>
+<script src="assets/js/jquery.validate.min.js"></script>
+<script>
+    $(function()
+    {
+        var loginForm = $("#login")
+        if(loginForm.length)
+        {
+            loginForm.validate({
+                rules:
+                {
+                    username:
+                    {
+                        required: true
+                    },
+                    password:
+                    {
+                        required: true
+                    }
+                },
+                messages:
+                {
+                    username:
+                    {
+                        required: "Ce champ est requis"
+                    },
+                    password:
+                    {
+                        required: "Ce champ est requis"
+                    }
+                },
+                errorPlacement: function(error, element)
+                {
+                    error.addClass('text-danger')
+                    error.appendTo(element.next().next())
+                }
+            })
+        }
+    })
+</script>
