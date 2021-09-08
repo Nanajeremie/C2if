@@ -1,4 +1,5 @@
 <?php 
+<<<<<<< Updated upstream
 include("../utilities/QueryBuilder.php");
 $obj = new QueryBuilder();
 $error = '';
@@ -27,6 +28,11 @@ if(isset($_POST["submit"]))
     }
 }
 ?>
+=======
+
+
+ ?>
+>>>>>>> Stashed changes
 
 <!DOCTYPE html>
 <html lang="en">
