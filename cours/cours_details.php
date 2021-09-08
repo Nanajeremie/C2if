@@ -1,3 +1,19 @@
+<?php
+include("../utilities/QueryBuilder.php");
+$obj=new QueryBuilder();
+isset($_SESSION['IDUSER'])?
+    $userInfo=$obj->Requete("SELECT * FROM learner, users
+                                        WHERE learner.IDUSER=users.IDUSER
+                                        AND users.IDUSER=".$_SESSION['IDUSER'])
+    :$userInfo=null;
+
+isset($_GET['idCourse'])?
+    $coursInfo=$obj->Requete("SELECT * FROM course, subject
+                                        WHERE subject.IDSUBJECT=course.IDSUBJECT
+                                        AND course.IDCOURSE=".$_GET['idCourse'])
+    :$coursInfo=null;
+?>
+
 <!doctype html>
 <html class="no-js" lang="zxx">
     <head>
@@ -81,109 +97,119 @@
     
     <!-- @Jeremie => Affichage des cours -->
     <div class="container-fluid my-5">
-        <form method="post" action="">
-            <div class="row">
-                <div class="col-sm-12 col-md-5 col-lg-4">
-                    <div class="card shadow mt-5 bg-danger border-light">
-                        <div class="card-body bg-white ml-2">
-                            <div class="row mb-3">
-                                <div class="col-12 text-danger uppercase mb-3 text-center font-weight-bold">Informatique</div>
-                                <div class="col-12 font-weight-bold mb-2">Conception logiciel</div>
-                                <div class="col-12"> <i class="fa fa-clock fa-1x text-muted " aria-hidden="true"></i>  3 mois de formation </div>
-                                <div class="col-12"> <i class="fa fa-book fa-1x text-muted" aria-hidden="true"></i>  3 devoirs à suivre </div>
-                                <div class="col-12"> <i class="fa fa-graduation-cap fa-1x text-muted" aria-hidden="true"></i> niveau Bac+3 </div>
-                            </div>
-                            <hr class=" bg-danger" style="width:100%; height:1px;">
-                            <div class="row">
-                                <div class="col-12 text-dark font-weight-bold">3 Aout 2021</div>
-                                <div class="col-12  text-muted">Votre formation commence aujourd'hui</div>
-                            </div>
-                            <hr class=" bg-danger">
-                            <div class="row">
-                                <div class="col-12 text-dark font-weight-bold">20 000 Fcfa par mois</div>
-                                <div class="col-12  text-muted">Vous pouvez annuler l'abonnement</div>
+        <?php if(isset($userInfo) AND isset($coursInfo)):$userInfo=$userInfo->fetch();
+        $coursInfo=$coursInfo->fetch();
+        ?>
+            <form method="post" action="">
+                <div class="row">
+                    <div class="col-sm-12 col-md-5 col-lg-4">
+                        <div class="card shadow mt-5 bg-danger border-light">
+                            <div class="card-body bg-white ml-2">
+                                <div class="row mb-3">
+                                    <div class="col-12 text-danger uppercase mb-3 text-center font-weight-bold"><?=$coursInfo['SUBJECTNAME']?></div>
+                                    <div class="col-12 font-weight-bold mb-2"><?=$coursInfo['COURSETITLE']?></div>
+                                    <div class="col-12"> <i class="fa fa-clock fa-1x text-muted " aria-hidden="true"></i>  <?=$coursInfo['DURATION']?> Jours de formation </div>
+                                    <div class="col-12"> <i class="fa fa-book fa-1x text-muted" aria-hidden="true"></i>  3 devoirs à suivre </div>
+                                    <div class="col-12"> <i class="fa fa-graduation-cap fa-1x text-muted" aria-hidden="true"></i> niveau <?=$coursInfo['LEVEL']?></div>
+                                </div>
+                                <hr class=" bg-danger" style="width:100%; height:1px;">
+                                <div class="row">
+                                    <div class="col-12 text-dark font-weight-bold">3 Aout 2021</div>
+                                    <div class="col-12  text-muted">Votre formation commence aujourd'hui</div>
+                                </div>
+                                <hr class=" bg-danger">
+                                <div class="row">
+                                    <div class="col-12 text-dark font-weight-bold">20 000 Fcfa par mois</div>
+                                    <div class="col-12  text-muted">Vous pouvez annuler l'abonnement</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-12 col-md-7 col-lg-5">
-                    <div class="card shadow mt-5 primeBack border-light">
-                        <div class="card-body bg-white ml-2">
-                            <div class="row mb-3">
-                                <div class="col-12 primeTxt uppercase mb-3 text-center font-weight-bold">Detail du compte</div>
-                                <div class="col-12 mt-4">
-                                    <div class="row">
-                                        <div class="input-group col-sm-12 col-md-6 mb-3">
-                                            <input type="text" class="form-control" placeholder="Nom">
-                                        </div>
-                                        <div class="input-group col-sm-12 col-md-6 mb-3">
-                                            <input type="text" class="form-control" placeholder="Prenom">
-                                        </div>
-                                        <div class="input-group col-sm-12 col-md-6 mb-3">
-                                            <input type="email" class="form-control" placeholder="Email">
-                                        </div>
-                                        <div class="input-group col-sm-12 col-md-6 mb-3">
-                                            <input type="text" class="form-control" placeholder="Code postal">
-                                        </div>
-                                        <div class="input-group col-sm-12 col-md-6 mb-3">
-                                            <input type="text" class="form-control" placeholder="Votre adresse">
-                                        </div>
-                                        <div class=" col-sm-12 col-md-6 mb-3">
-                                            <Select class="input-group w-100">
-                                                <option value="Pays" class="form-control">Selectionner votre pays</option>
-                                                <option value="Pays" class="form-control">Votre pays</option>
-                                                <option value="Burkina Faso" class="form-control">Burkina Faso</option>
-                                                <option value="Benin" class="form-control">Benin</option>
-                                            </Select>
-                                        </div>
-                                        <div class="input-group col-sm-12 col-md-6 mb-3">
-                                            <input type="number" class="form-control" placeholder="Telephonel">
-                                        </div>
-                                        <div class="input-group col-sm-12 col-md-6 mb-3">
-                                            <input type="text" class="form-control" placeholder="Code secret si vous en avez">
-                                        </div>
-                                        <hr>
-                                        <div class="form-check-inline col-sm-12 col-md-12 mb-4 ml-3">
-                                            <input type="checkbox" class="form-check-input" value="1">Vous accepter les conditions d'utilisations
+                    <div class="col-sm-12 col-md-7 col-lg-5">
+                        <div class="card shadow mt-5 primeBack border-light">
+                            <div class="card-body bg-white ml-2">
+                                <div class="row mb-3">
+                                    <div class="col-12 primeTxt uppercase mb-3 text-center font-weight-bold">Detail du compte</div>
+                                    <div class="col-12 mt-4">
+                                        <div class="row">
+                                            <div class="input-group col-sm-12 col-md-6 mb-3">
+                                                <input value="<?=$userInfo['LASTNAME']?>" type="text" class="form-control" placeholder="Nom" readonly>
+                                            </div>
+                                            <div class="input-group col-sm-12 col-md-6 mb-3">
+                                                <input value="<?=$userInfo['LEARNERFIRSTNAME']?>" type="text" class="form-control" placeholder="Prenom" readonly>
+                                            </div>
+                                            <div class="input-group col-sm-12 col-md-6 mb-3">
+                                                <input value="<?=$userInfo['EMAIL']?>" type="email" class="form-control" placeholder="Email" readonly>
+                                            </div>
+                                            <div class="input-group col-sm-12 col-md-6 mb-3">
+                                                <input type="text" class="form-control" placeholder="Code postal">
+                                            </div>
+                                            <div class="input-group col-sm-12 col-md-6 mb-3">
+                                                <input type="text" class="form-control" placeholder="Votre adresse">
+                                            </div>
+                                            <div class=" col-sm-12 col-md-6 mb-3">
+                                                <Select class="input-group w-100">
+                                                    <option value="Pays" class="form-control">Selectionner votre pays</option>
+                                                    <option value="Pays" class="form-control">Votre pays</option>
+                                                    <option value="Burkina Faso" class="form-control">Burkina Faso</option>
+                                                    <option value="Benin" class="form-control">Benin</option>
+                                                </Select>
+                                            </div>
+                                            <div class="input-group col-sm-12 col-md-6 mb-3">
+                                                <input type="number" class="form-control" placeholder="Telephonel">
+                                            </div>
+                                            <div class="input-group col-sm-12 col-md-6 mb-3">
+                                                <input type="text" class="form-control" placeholder="Code secret si vous en avez">
+                                            </div>
+                                            <hr>
+                                            <div class="form-check-inline col-sm-12 col-md-12 mb-4 ml-3">
+                                                <input type="checkbox" class="form-check-input" value="1">Vous accepter les conditions d'utilisations
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-3">
-                    <div class="card shadow mt-5 primeBack border-light">
-                        <div class="card-body bg-white ml-2">
-                            <div class="row mb-3">
-                                <div class="col-12 primeTxt uppercase mb-3 text-center font-weight-bold">Mode de paiement</div>
-                                <div class="col-12 font-weight-bold ">Conditions de paiement</div>
-                                <div class="col-12"> <i class="fa fa-money-check fa-1x text-muted " aria-hidden="true"></i> Montant total: 20 000 Fcfa</div>
-                            </div>
-                            <hr class=" primeBack" style="width:100%; height:1px;">
-                            <div class="col-12 mb-2">Choisissez votre moyen de paiement</div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optradio" checked>Paiement par Orange Money
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optradio">Paiement par Mobicash
-                                </label>
-                            </div>
-                            <hr class="primeBack">
-                            <div class="col-12 font-weight-bold">NB: verifier vos informations </div>
-                            <div class="row mt-2">
-                                <div class="col-12 text-dark font-weight-bold">
-                                    <button type="button" class="btn btn-secondary"> Commencer le paiement</button>
+                    <div class="col-sm-12 col-md-6 col-lg-3">
+                        <div class="card shadow mt-5 primeBack border-light">
+                            <div class="card-body bg-white ml-2">
+                                <div class="row mb-3">
+                                    <div class="col-12 primeTxt uppercase mb-3 text-center font-weight-bold">Mode de paiement</div>
+                                    <div class="col-12 font-weight-bold ">Conditions de paiement</div>
+                                    <div class="col-12"> <i class="fa fa-money-check fa-1x text-muted " aria-hidden="true"></i> Montant total: 20 000 Fcfa</div>
+                                </div>
+                                <hr class=" primeBack" style="width:100%; height:1px;">
+                                <div class="col-12 mb-2">Choisissez votre moyen de paiement</div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optradio" checked>Paiement par Orange Money
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="optradio">Paiement par Mobicash
+                                    </label>
+                                </div>
+                                <hr class="primeBack">
+                                <div class="col-12 font-weight-bold">NB: verifier vos informations </div>
+                                <div class="row mt-2">
+                                    <div class="col-12 text-dark font-weight-bold">
+                                        <button type="button" class="btn btn-secondary"> Commencer le paiement</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+
+        <?php else:?>
+        <div class="row justify-content-center">
+            <span class="col-3 text-center">Ooops, Vous devez d'abord vous authentifier et seletionner un cours !!!</span>
+        </div>
+        <?php endif;?>
+
     </div>
        
    <?php include'footer2.php';?>

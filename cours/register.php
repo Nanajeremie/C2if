@@ -11,12 +11,12 @@ if(isset($_POST["submit"]))
     $password = md5($password);
     //die(var_dump($password));
     //inserts the new user in the users table
-    $res = $obj->Inscription('users', array("USERSNAME", "PASSWORD", "EMAIL", "TELEPHONE", "TYPE"), array($username, $password, $email, $telephone, "learner"), $status = array("USERSNAME"=>$username));
+    $res = $obj->Inscription('users', array("USERNAME", "PASSWORD", "EMAIL", "TELEPHONE", "TYPE"), array($username, $password, $email, $telephone, "learner"), $status = array("USERNAME"=>$username));
     //if the registration in the users table is done
     if($res==true)
     {
         //selection of the id of the user
-        $id = $obj->Select('users', array('IDUSER'), array("USERSNAME"=>$username))->fetch();
+        $id = $obj->Select('users', array('IDUSER'), array("USERNAME"=>$username))->fetch();
         $id = $id['IDUSER'];
         //creation of the user matricule
         $matricule = 'learner'.$id.date('Ymd');

@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -296,7 +297,7 @@
                                 <h4>Proverbe du jour</h4>
                                 <h5 class="text-muted">On façonne les plantes par la culture et les hommes par l'éducation.</h5>
                                 <div class="product-price">
-                                    <h4 class="text-muted mt-2">Auteur:</h3>
+                                    <h4 class="text-muted mt-2">Auteur:</h4>
                                     <div class="single-item-rating ">
                                         <h5 class="text-muted secondTxt">Jean-Jacques Rousseau</h5>
                                     </div>

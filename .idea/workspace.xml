@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="16f46260-2047-403f-af5f-ddf6235d490a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/cours/cours.php" beforeDir="false" afterPath="$PROJECT_DIR$/cours/cours.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cours/cours_details.php" beforeDir="false" afterPath="$PROJECT_DIR$/cours/cours_details.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cours/learner/all-courses.php" beforeDir="false" afterPath="$PROJECT_DIR$/cours/learner/all-courses.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cours/learner/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/cours/learner/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cours/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/cours/register.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/C2ifDB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/C2ifDB.sql" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1wV2J4subV95RGfkvBSbMxnNkY7" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="16f46260-2047-403f-af5f-ddf6235d490a" name="Default Changelist" comment="" />
+      <created>1628529360138</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1628529360138</updated>
+      <workItem from="1628529365543" duration="1452000" />
+      <workItem from="1628983076469" duration="418000" />
+      <workItem from="1628983519124" duration="26141000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+</project>

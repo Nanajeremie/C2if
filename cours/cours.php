@@ -1,3 +1,13 @@
+<?php
+include("../utilities/QueryBuilder.php");
+$obj = new QueryBuilder();
+$subjects = $obj->Select('subject',[],[]);
+!isset($_GET['idMatiere'])? $courses = $obj->Select('course',[],[]) : $courses = $obj->Select('course',[],['IDSUBJECT'=>$_GET['idMatiere']]);
+
+
+
+?>
+
 <!doctype html>
 <html class="no-js" lang="zxx">
     <head>
@@ -81,6 +91,7 @@
     
     <!-- @Jeremie => Affichage des cours -->
     <div class="container-fluid my-5">
+        <?php if (is_object($subjects)):?>
         <div class="row">
             <div class="col-12">
                 <div class="card mt-5 cardBor">
@@ -89,50 +100,42 @@
                             <div class="col-12">
                                 <p class="text-center">Veuillez chosir une categorie pour vour la liste des cours disponible</p>
                             </div>
-                            <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
-                                <button class="btn btn-outline-danger w-100" type="button">Informatique</button>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
-                                <button class="btn btn-outline-warning w-100" type="button">Comptabilites</button>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
-                                <button class="btn btn-outline-success w-100" type="button">Resource humaine</button>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
-                                <button class="btn btn-outline-secondary w-100" type="button">Genie civil</button>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
-                                <button class="btn btn-outline-info w-100" type="button">Mine</button>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
-                                <button class="btn btn-outline-primary w-100" type="button">Banque</button>
-                            </div>
+
+                            <?php while ($subject=$subjects->fetch()): ?>
+                                <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
+                                    <a href="cours.php?idMatiere=<?=$subject['IDSUBJECT']?>">
+                                        <button class="btn btn-outline-<?=$subject['COLOR']?> w-100" type="button"><?=$subject['SUBJECTNAME']?></button>
+                                    </a>
+                                </div>
+                            <?php endwhile;?>
                         </div>
                     
                     </div>
                     <div class="card-body">
+                        <?php if(is_object($courses)):?>
                         <div class="row">
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card border-danger">
-                                    <div class="card-header bg-danger">
+                            <?php while($course=$courses->fetch()): $matiere=$obj->Select('subject',[],['IDSUBJECT'=>$course['IDSUBJECT']])->fetch();?>
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                                <div class="card border-<?=$matiere['COLOR']?>">
+                                    <div class="card-header bg-<?=$matiere['COLOR']?>">
                                         <div class="row ">
                                             <div class="col-3">
                                                 <h5 class="text-end text-white">Prix</h5>
                                             </div>
                                             <div class="col-9">
-                                                <h5 class="text-center text-white"> Informatique</h5>
+                                                <h5 class="text-center text-white"> <?=$course['COURSETITLE']?></h5>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-body " style="background-image:url(assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:250px;width:100%">
                                     </div>
-                                    <div class="card-footer border-danger bg-danger">
+                                    <div class="card-footer border-<?=$matiere['COLOR']?> bg-<?=$matiere['COLOR']?>">
                                         <div class="row small">
                                             <div class="col-4 text-white">
-                                                <i class="fa fa-clock fa-1x text-white" aria-hidden="true"></i> 3 mois
+                                                <i class="fa fa-clock fa-1x text-white" aria-hidden="true"></i> <?=$course['DURATION']?> jours
                                             </div>
                                             <div class="col-4 text-white">
-                                                 <i class="fa fa-chart-bar fa-1x text-white" aria-hidden="true"></i> Moyenne
+                                                 <i class="fa fa-chart-bar fa-1x text-white" aria-hidden="true"></i> <?=$course['LEVEL']?>
                                             </div>
                                             <div class="col-4 text-white ">
                                             <a href="cours_details.php"><i class="fa fa-eye fa-1x text-white" aria-hidden="true"></i> Suivre</a> 
@@ -141,104 +144,19 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card border-info">
-                                    <div class="card-header bg-info">
-                                        <div class="row ">
-                                            <div class="col-3">
-                                                <h5 class="text-end text-white">Prix</h5>
-                                            </div>
-                                            <div class="col-9">
-                                                <h5 class="text-center text-white"> Informatique</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body " style="background-image:url(assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:250px;width:100%">
-                                    </div>
-                                    <div class="card-footer border-info bg-info">
-                                        <div class="row small">
-                                            <div class="col-4 text-white">
-                                                <i class="fa fa-clock fa-1x text-white" aria-hidden="true"></i> 3 mois
-                                            </div>
-                                            <div class="col-4 text-white">
-                                                 <i class="fa fa-chart-bar fa-1x text-white" aria-hidden="true"></i> Moyenne
-                                            </div>
-                                            <div class="col-4 text-white ">
-                                            <a href="cours_details.php"><i class="fa fa-eye fa-1x text-white" aria-hidden="true"></i> Suivre</a> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card border-warning">
-                                    <div class="card-header bg-warning">
-                                        <div class="row ">
-                                            <div class="col-3">
-                                                <h5 class="text-end text-white">Prix</h5>
-                                            </div>
-                                            <div class="col-9">
-                                                <h5 class="text-center text-white"> Comptabilite</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body " style="background-image:url(assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:250px;width:100%">
-                                    </div>
-                                    <div class="card-footer border-warning bg-warning">
-                                        <div class="row small">
-                                            <div class="col-4 text-white">
-                                                <i class="fa fa-clock fa-1x text-white" aria-hidden="true"></i> 3 mois
-                                            </div>
-                                            <div class="col-4 text-white">
-                                                 <i class="fa fa-chart-bar fa-1x text-white" aria-hidden="true"></i> Moyenne
-                                            </div>
-                                            <div class="col-4 text-white ">
-                                            <a href="cours_details.php"><i class="fa fa-eye fa-1x text-white" aria-hidden="true"></i> Suivre</a> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card border-success">
-                                    <div class="card-header bg-success">
-                                        <div class="row ">
-                                            <div class="col-3">
-                                                <h5 class="text-end text-white">Prix</h5>
-                                            </div>
-                                            <div class="col-9">
-                                                <h5 class="text-center text-white"> Informatique</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body " style="background-image:url(assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:250px;width:100%">
-                                    </div>
-                                    <div class="card-footer border-success bg-success">
-                                        <div class="row small">
-                                            <div class="col-4 text-white">
-                                                <i class="fa fa-clock fa-1x text-white" aria-hidden="true"></i> 3 mois
-                                            </div>
-                                            <div class="col-4 text-white">
-                                                 <i class="fa fa-chart-bar fa-1x text-white" aria-hidden="true"></i> Moyenne
-                                            </div>
-                                            <div class="col-4 text-white ">
-                                                 <a href="cours_details.php"><i class="fa fa-eye fa-1x text-white" aria-hidden="true"></i> Suivre</a> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                            <?php endwhile;?>
                         </div>
+                        <?php endif;?>
                     </div>
                     <div class="card-footer cardBor primeBack text-white">Footer</div>
                 </div>
             </div>
         </div>
+        <?php else:?>
+        <div class="">
+            <span>Desoler, pas de cours dans la base de donnees !!!</span>
+        </div>
+        <?php endif;?>
     </div>
        
    <?php include'footer2.php';?>

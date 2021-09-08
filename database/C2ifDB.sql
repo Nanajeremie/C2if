@@ -180,13 +180,6 @@ IF NOT EXISTS `learner`
 -- Dumping data for table `learner`
 --
 
-INSERT INTO `learner` (`
-MATRICULE`,
-`IDUSER
-`, `LASTNAME`, `LEARNERFIRSTNAME`, `STATUT`) VALUES
-('learner320210813', 3, 'Yaro', 'Emmanuel', NULL),
-('learner420210813', 4, 'Yaro', 'Emmanuel', NULL),
-('learner520210813', 5, 'Yaro', 'Emmanuel', NULL);
 
 -- --------------------------------------------------------
 
@@ -323,6 +316,13 @@ IDUSER`,
 --
 -- Constraints for dumped tables
 --
+INSERT INTO `learner` (`
+MATRICULE`,
+`IDUSER
+`, `LASTNAME`, `LEARNERFIRSTNAME`, `STATUT`) VALUES
+('learner320210813', 3, 'Yaro', 'Emmanuel', NULL),
+('learner420210813', 4, 'Yaro', 'Emmanuel', NULL),
+('learner520210813', 5, 'Yaro', 'Emmanuel', NULL);
 
 --
 -- Constraints for table `admin`
