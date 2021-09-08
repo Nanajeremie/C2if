@@ -1,11 +1,9 @@
 <?php 
-<<<<<<< Updated upstream
 include("../utilities/QueryBuilder.php");
 $obj = new QueryBuilder();
 $error = '';
 //if the submit button is clicked
-if(isset($_POST["submit"]))
-{
+if(isset($_POST["submit"])){
     extract($_POST);
     //if the button 'remember me' is on
     $cookies = [];
@@ -28,11 +26,6 @@ if(isset($_POST["submit"]))
     }
 }
 ?>
-=======
-
-
- ?>
->>>>>>> Stashed changes
 
 <!DOCTYPE html>
 <html lang="en">

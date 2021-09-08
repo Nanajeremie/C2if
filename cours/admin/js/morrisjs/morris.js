@@ -1287,6 +1287,8 @@ Licensed under the BSD-2-Clause License.
     };
 
     function Area(options) {
+      
+     
       var areaOptions;
       if (!(this instanceof Morris.Area)) {
         return new Morris.Area(options);
@@ -1298,8 +1300,10 @@ Licensed under the BSD-2-Clause License.
       }
       Area.__super__.constructor.call(this, areaOptions);
     }
+   
 
     Area.prototype.calcPoints = function() {
+      
       var row, total, y, _i, _len, _ref, _results;
       _ref = this.data;
       _results = [];
@@ -1340,6 +1344,7 @@ Licensed under the BSD-2-Clause License.
         range = (function() {
           _results1 = [];
           for (var _j = _ref1 = this.options.ykeys.length - 1; _ref1 <= 0 ? _j <= 0 : _j >= 0; _ref1 <= 0 ? _j++ : _j--){ _results1.push(_j); }
+          
           return _results1;
         }).apply(this);
       }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Dashboard V.1 | Kiaalap - Kiaalap Admin Template</title>
+    <title>C2if</title>
     <?php include('links.php');?>
 </head>
 
@@ -33,48 +33,32 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                         <div class="analytics-sparkle-line reso-mg-b-30 shadow">
                             <div class="analytics-content">
-                                <h5>Maintenance</h5>
-                                <h2><span class="">03/08/2021</span> <span class="tuition-fees">Progression</span></h2>
-                                <span class="text-success">20%</span>
-                                <div class="progress m-b-0">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:20%;"> <span class="sr-only">20% Complete</span> </div>
-                                </div>
+                                <h5>Nombre de cours</h5>
+                                <span class="text-success">20</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                         <div class="analytics-sparkle-line reso-mg-b-30 shadow">
                             <div class="analytics-content">
-                                <h5>Batiment</h5>
-                                <h2><span class="">03/08/2021</span> <span class="tuition-fees">Progression</span></h2>
-                                <span class="text-danger">30%</span>
-                                <div class="progress m-b-0">
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:30%;"> <span class="sr-only">30% Complete</span> </div>
-                                </div>
+                                <h5>Abonnes</h5>
+                                <span class="text-danger">120</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                         <div class="analytics-sparkle-line reso-mg-b-30 table-mg-t-pro dk-res-t-pro-30 shadow">
                             <div class="analytics-content">
-                                <h5>Programmation</h5>
-                                <h2><span class="">03/08/2021</span> <span class="tuition-fees">Progression</span></h2>
-                                <span class="text-info">60%</span>
-                                <div class="progress m-b-0">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:60%;"> <span class="sr-only">60% Complete</span> </div>
-                                </div>
+                                <h5>Visiteurs</h5>
+                                <span class="text-info">60</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                         <div class="analytics-sparkle-line table-mg-t-pro dk-res-t-pro-30 shadow">
                             <div class="analytics-content">
-                                <h5>Mine</h5>
-                                <h2><span class="">03/08/2021</span> <span class="tuition-fees">Progression</span></h2>
-                                <span class="text-inverse">80%</span>
-                                <div class="progress m-b-0">
-                                    <div class="progress-bar progress-bar-inverse" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:80%;"> <span class="sr-only">80% Complete</span> </div>
-                                </div>
+                                <h5>Parteneurs</h5>
+                                <span class="text-inverse">80</span>
                             </div>
                         </div>
                     </div>
@@ -85,38 +69,44 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-                    <div class="col-12 text-center mb-3 h4 font-weight-bold primeTxt">Evolution des notes</div>
+                    <div class="col-12 text-center mb-3 h4 font-weight-bold primeTxt">Evolution des inscriptions</div>
                         <div class="product-sales-chart shadow">
                             <div class="portlet-title">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                         <div class="caption pro-sl-hd">
-                                            <span class="caption-subject"><b>Resultats</b></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <div class="actions graph-rp graph-rp-dl">
-                                            <p>Evolution des nots</p>
+                                            <form action="">
+                                                <div class="row">
+                                                    <div class="col-6 form group">
+                                                        <select class="form-control text-muted">
+                                                            <option value="">Choisir un cour</option>
+                                                            <option value="">Batiment</option>
+                                                            <option value="">Php</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-6 form group">
+                                                        <select class="form-control text-muted">
+                                                            <option value="">Choisir une date</option>
+                                                            <option value="">2020</option>
+                                                            <option value="">2021</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <ul class="list-inline cus-product-sl-rp">
+                            <ul class="list-inline cus-product-sl-rp mt-3">
                                 <li>
-                                    <h5><i class="fa fa-circle" style="color: #006DF0;"></i>CSE</h5>
-                                </li>
-                                <li>
-                                    <h5><i class="fa fa-circle" style="color: #933EC5;"></i>Accounting</h5>
-                                </li>
-                                <li>
-                                    <h5><i class="fa fa-circle" style="color: #65b12d;"></i>Electrical</h5>
+                                    <h5><i class="fa fa-circle" style="color: #006DF0;"></i>Batiment</h5>
                                 </li>
                             </ul>
                             <div id="extra-area-chart" style="height: 356px;"></div>
                         </div>
                     </div>
+                    </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="col-12 text-center mb-3 h4 font-weight-bold primeTxt">Cours terminés</div>
+                        <div class="col-12 text-center mb-3 h4 font-weight-bold primeTxt"> Les cours les plus suivis</div>
                         <div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 res-mg-t-30 table-mg-t-pro-n tb-sm-res-d-n dk-res-t-d-n ">
                             <h3 class="box-title">PHP</h3>
                             <ul class="list-inline two-part-sp">
@@ -311,59 +301,45 @@
     <script>
 // Dashboard 1 Morris-chart
 
-Morris.Area({
-        element: 'extra-area-chart',
-        data: [{
-            period: '2010',
-            CSE: 50,
-            Accounting: 80,
-            Electrical: 20
-        }, {
-            period: '2011',
-            CSE: 130,
-            Accounting: 100,
-            Electrical: 80
-        }, {
-            period: '2012',
-            CSE: 80,
-            Accounting: 60,
-            Electrical: 70
-        }, {
-            period: '2013',
-            CSE: 70,
-            Accounting: 200,
-            Electrical: 140
-        }, {
-            period: '2014',
-            CSE: 180,
-            Accounting: 150,
-            Electrical: 140
-        }, {
-            period: '2015',
-            CSE: 105,
-            Accounting: 100,
-            Electrical: 80
-        },
-         {
-            period: '2016',
-            CSE: 250,
-            Accounting: 150,
-            Electrical: 200
-        }],
-        xkey: 'period',
-        ykeys: ['CSE', 'Accounting', 'Electrical'],
-        labels: ['CSE', 'Accounting', 'Electrical'],
-        pointSize: 3,
-        fillOpacity: 0,
-        pointStrokeColors:['#006DF0', '#933EC5', '#65b12d'],
-        behaveLikeLine: true,
-        gridLineColor: '#e0e0e0',
-        lineWidth: 1,
-        hideHover: 'auto',
-        lineColors: ['#006DF0', '#933EC5', '#65b12d'],
-        resize: true
-        
-    });
+new Morris.Line({
+    // ID of the element in which to draw the chart.
+    element: 'extra-area-chart',
+    // Chart data records -- each entry in this array corresponds to a point on
+    // the chart.
+    data: [
+        { year: 'jan', value: 12 },
+        { year: 'fev', value: 10 },
+        { year: 'mar', value: 5 },
+        { year: 'avr', value: 4 },
+        { year: 'mai', value: 8 },
+        { year: 'jui', value: 20 },
+        { year: 'juil', value: 17 },
+        { year: 'aou', value: 15 },
+        { year: 'sep', value: 5 },
+        { year: 'oct', value: 20 },
+        { year: 'nov', value: 30 },
+        { year: 'dec', value: 19 }
+    ],
+    parseTime:false,
+    // The name of the data record attribute that contains x-values.
+    xkey: 'year',
+    // A list of names of data record attributes that contain y-values.
+    ykeys: ['value'],
+    xLabels:'month',
+    // Labels for the ykeys -- will be displayed when you hover over the
+    // chart.
+    labels: ['Batiment'],
+    pointSize: 1,
+    fillOpacity: 0,
+    pointStrokeColors:['#006DF0'],
+    behaveLikeLine: true,
+    gridLineColor: '#e0e0e0',
+    lineWidth: 1,
+    hideHover: 'auto',
+    lineColors: ['#006DF0'],
+    resize: true,
+});
+
     </script>
 </body>
 
