@@ -29,408 +29,280 @@
         <?php include('mobile.php');?>
         <div class="analytics-sparkle-area mb-3">
             <div class="container-fluid">
-                <div class="card shadow">
-                    <div class="card-header">
-                            <div class="col-12 text-center h5 text-muted font-weight-bold primeTxt">Les cours en cours de lecture</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 ">
-                                <div class="analytics-sparkle-line reso-mg-b-30 shadow">
-                                    <div class="analytics-content">
-                                        <h5>Maintenance</h5>
-                                        <h2><span class="h5"> <a href="read.php?cours=1">Continuer la lecture</a></span> <span class="tuition-fees">Progression</span></h2>
-                                        <span class="text-success">20%</span>
-                                        <div class="progress m-b-0">
-                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:20%;"> <span class="sr-only">20% Complete</span> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                <div class="analytics-sparkle-line reso-mg-b-30 shadow">
-                                    <div class="analytics-content">
-                                        <h5>Batiment</h5>
-                                        <h2><span class="h5"> <a href="#">Continuer la lecture</a></span> <span class="tuition-fees">Progression</span></h2>
-                                        <span class="text-danger">30%</span>
-                                        <div class="progress m-b-0">
-                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:30%;"> <span class="sr-only">30% Complete</span> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                <div class="analytics-sparkle-line reso-mg-b-30 table-mg-t-pro dk-res-t-pro-30 shadow">
-                                    <div class="analytics-content">
-                                        <h5>Programmation</h5>
-                                        <h2><span class="h5"> <a href="#">Continuer la lecture</a></span><span class="tuition-fees">Progression</span></h2>
-                                        <span class="text-info">60%</span>
-                                        <div class="progress m-b-0">
-                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:60%;"> <span class="sr-only">60% Complete</span> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                <div class="analytics-sparkle-line table-mg-t-pro dk-res-t-pro-30 shadow">
-                                    <div class="analytics-content">
-                                        <h5>Mine</h5>
-                                        <h2><span class="h5"> <a href="#">Continuer la lecture</a></span> <span class="tuition-fees">Progression</span></h2>
-                                        <span class="text-inverse">80%</span>
-                                        <div class="progress m-b-0">
-                                            <div class="progress-bar progress-bar-inverse" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:80%;"> <span class="sr-only">80% Complete</span> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>  
-                        </div>
-                    </div>
-                </div>
             </div>
         </div> <br>
         <div class="courses-area mb-3">
             <div class="container-fluid">
                 <div class="card shadow">
-                    <div class="card-header ">
+                    <div class="card-header">
                         <div class="row">
-                            <div class="col-12">
-                                <p class="text-center">Veuillez chosir une categorie pour vour la liste des cours disponible</p>
+                            <div class="col-9 col-sm-8 col-md-9 col-lg-10">
+                                <form action="#" method="post" class="">
+                                    <div class="form-group">
+                                        <select name="" id="cat" class="form-control w-25 shadow bg-light">
+                                            <option value="">Categorie</option>
+                                            <option value="">Batiment</option>
+                                            <option value="">Mine</option>
+                                            <option value="">Backend</option>
+                                        </select>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
-                                <button class="btn btn-outline-danger w-100" type="button">Informatique</button>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
-                                <button class="btn btn-outline-warning w-100" type="button">Comptabilites</button>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
-                                <button class="btn btn-outline-success w-100" type="button">Resource humaine</button>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
-                                <button class="btn btn-outline-secondary w-100" type="button">Genie civil</button>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
-                                <button class="btn btn-outline-info w-100" type="button">Mine</button>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
-                                <button class="btn btn-outline-primary w-100" type="button">Banque</button>
+                            <div class="col-6 col-sm-4 col-md-3 col-lg-2 text-right">
+                                <button class="btn btn-outline-primary w-50" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ajouter</button>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card border-danger shadow">
-                                    <div class="card-header bg-danger">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
+                                <div class="card shadow">
+                                    <div class="card-header bg-white border-none">
                                         <div class="row ">
                                             <div class="col-12">
-                                                <h6 class="text-center text-white"> Informatique</h6>
+                                                <h6 class="text-center text-muted"> Informatique</h6>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-body " style="background-image:url(../assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:200px;width:100%">
                                     </div>
-                                    <div class="card-footer border-danger bg-danger">
+                                    <div class="card-footer">
                                         <div class="row small">
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Durée: </Strong></div>
-                                                    <div class="col-6">3 mois</div>
-                                                </div>
-                                                
-                                            </div>
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Prix: </Strong></div>
-                                                    <div class="col-6">20 000 Fcfa</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Difficulté: </Strong></div>
-                                                    <div class="col-6">Moyenne</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-white mt-2 text-right">
-                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-danger"><i class="fa fa-eye  text-danger " aria-hidden="true"></i> Suivre</a> 
+                                            <div class="col-12 text-right">
+                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-muted"><i class="fa fa-eye  text-danger " aria-hidden="true"></i> Detail</a> 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card border-danger shadow">
-                                    <div class="card-header bg-success">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
+                                <div class="card shadow">
+                                    <div class="card-header bg-white border-none">
                                         <div class="row ">
                                             <div class="col-12">
-                                                <h6 class="text-center text-white"> Batiments</h6>
+                                                <h6 class="text-center text-muted"> Informatique</h6>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-body " style="background-image:url(../assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:200px;width:100%">
                                     </div>
-                                    <div class="card-footer border-success bg-success">
+                                    <div class="card-footer">
                                         <div class="row small">
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Durée: </Strong></div>
-                                                    <div class="col-6">6 mois</div>
-                                                </div>
-                                                
-                                            </div>
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Prix: </Strong></div>
-                                                    <div class="col-6">30 000 Fcfa</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Difficulté: </Strong></div>
-                                                    <div class="col-6">Moyenne</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-white mt-2 text-right">
-                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-success"><i class="fa fa-eye  text-success " aria-hidden="true"></i> Suivre</a> 
+                                            <div class="col-12 text-right">
+                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-muted"><i class="fa fa-eye  text-danger " aria-hidden="true"></i> Detail</a> 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card border-danger shadow">
-                                    <div class="card-header bg-danger">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
+                                <div class="card shadow">
+                                    <div class="card-header bg-white border-none">
                                         <div class="row ">
                                             <div class="col-12">
-                                                <h6 class="text-center text-white"> Informatique</h6>
+                                                <h6 class="text-center text-muted"> Informatique</h6>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-body " style="background-image:url(../assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:200px;width:100%">
                                     </div>
-                                    <div class="card-footer border-danger bg-danger">
+                                    <div class="card-footer">
                                         <div class="row small">
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Durée: </Strong></div>
-                                                    <div class="col-6">3 mois</div>
-                                                </div>
-                                                
-                                            </div>
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Prix: </Strong></div>
-                                                    <div class="col-6">20 000 Fcfa</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Difficulté: </Strong></div>
-                                                    <div class="col-6">Moyenne</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-white mt-2 text-right">
-                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-danger"><i class="fa fa-eye  text-danger " aria-hidden="true"></i> Suivre</a> 
+                                            <div class="col-12 text-right">
+                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-muted"><i class="fa fa-eye  text-danger " aria-hidden="true"></i> Detail</a> 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card border-danger shadow">
-                                    <div class="card-header bg-success">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
+                                <div class="card shadow">
+                                    <div class="card-header bg-white border-none">
                                         <div class="row ">
                                             <div class="col-12">
-                                                <h6 class="text-center text-white"> Batiments</h6>
+                                                <h6 class="text-center text-muted"> Informatique</h6>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-body " style="background-image:url(../assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:200px;width:100%">
                                     </div>
-                                    <div class="card-footer border-success bg-success">
+                                    <div class="card-footer">
                                         <div class="row small">
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Durée: </Strong></div>
-                                                    <div class="col-6">6 mois</div>
-                                                </div>
-                                                
-                                            </div>
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Prix: </Strong></div>
-                                                    <div class="col-6">30 000 Fcfa</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Difficulté: </Strong></div>
-                                                    <div class="col-6">Moyenne</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-white mt-2 text-right">
-                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-success"><i class="fa fa-eye  text-success " aria-hidden="true"></i> Suivre</a> 
+                                            <div class="col-12 text-right">
+                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-muted"><i class="fa fa-eye  text-danger " aria-hidden="true"></i> Detail</a> 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card border-danger shadow">
-                                    <div class="card-header bg-danger">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
+                                <div class="card shadow">
+                                    <div class="card-header bg-white border-none">
                                         <div class="row ">
                                             <div class="col-12">
-                                                <h6 class="text-center text-white"> Informatique</h6>
+                                                <h6 class="text-center text-muted"> Informatique</h6>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-body " style="background-image:url(../assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:200px;width:100%">
                                     </div>
-                                    <div class="card-footer border-danger bg-danger">
+                                    <div class="card-footer">
                                         <div class="row small">
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Durée: </Strong></div>
-                                                    <div class="col-6">3 mois</div>
-                                                </div>
-                                                
-                                            </div>
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Prix: </Strong></div>
-                                                    <div class="col-6">20 000 Fcfa</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Difficulté: </Strong></div>
-                                                    <div class="col-6">Moyenne</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-white mt-2 text-right">
-                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-danger"><i class="fa fa-eye  text-danger " aria-hidden="true"></i> Suivre</a> 
+                                            <div class="col-12 text-right">
+                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-muted"><i class="fa fa-eye  text-danger " aria-hidden="true"></i> Detail</a> 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card border-danger shadow">
-                                    <div class="card-header bg-success">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
+                                <div class="card shadow">
+                                    <div class="card-header bg-white border-none">
                                         <div class="row ">
                                             <div class="col-12">
-                                                <h6 class="text-center text-white"> Batiments</h6>
+                                                <h6 class="text-center text-muted"> Informatique</h6>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-body " style="background-image:url(../assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:200px;width:100%">
                                     </div>
-                                    <div class="card-footer border-success bg-success">
+                                    <div class="card-footer">
                                         <div class="row small">
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Durée: </Strong></div>
-                                                    <div class="col-6">6 mois</div>
-                                                </div>
-                                                
-                                            </div>
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Prix: </Strong></div>
-                                                    <div class="col-6">30 000 Fcfa</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Difficulté: </Strong></div>
-                                                    <div class="col-6">Moyenne</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-white mt-2 text-right">
-                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-success"><i class="fa fa-eye  text-success " aria-hidden="true"></i> Suivre</a> 
+                                            <div class="col-12 text-right">
+                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-muted"><i class="fa fa-eye  text-danger " aria-hidden="true"></i> Detail</a> 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card border-danger shadow">
-                                    <div class="card-header bg-danger">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
+                                <div class="card shadow">
+                                    <div class="card-header bg-white border-none">
                                         <div class="row ">
                                             <div class="col-12">
-                                                <h6 class="text-center text-white"> Informatique</h6>
+                                                <h6 class="text-center text-muted"> Informatique</h6>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-body " style="background-image:url(../assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:200px;width:100%">
                                     </div>
-                                    <div class="card-footer border-danger bg-danger">
+                                    <div class="card-footer">
                                         <div class="row small">
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Durée: </Strong></div>
-                                                    <div class="col-6">3 mois</div>
-                                                </div>
-                                                
-                                            </div>
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Prix: </Strong></div>
-                                                    <div class="col-6">20 000 Fcfa</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Difficulté: </Strong></div>
-                                                    <div class="col-6">Moyenne</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-white mt-2 text-right">
-                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-danger"><i class="fa fa-eye  text-danger " aria-hidden="true"></i> Suivre</a> 
+                                            <div class="col-12 text-right">
+                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-muted"><i class="fa fa-eye  text-danger " aria-hidden="true"></i> Detail</a> 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card border-danger shadow">
-                                    <div class="card-header bg-success">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
+                                <div class="card shadow">
+                                    <div class="card-header bg-white border-none">
                                         <div class="row ">
                                             <div class="col-12">
-                                                <h6 class="text-center text-white"> Batiments</h6>
+                                                <h6 class="text-center text-muted"> Informatique</h6>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-body " style="background-image:url(../assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:200px;width:100%">
                                     </div>
-                                    <div class="card-footer border-success bg-success">
+                                    <div class="card-footer">
                                         <div class="row small">
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Durée: </Strong></div>
-                                                    <div class="col-6">6 mois</div>
-                                                </div>
-                                                
-                                            </div>
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Prix: </Strong></div>
-                                                    <div class="col-6">30 000 Fcfa</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-white">
-                                                <div class="row">
-                                                    <div class="col-6"><Strong>Difficulté: </Strong></div>
-                                                    <div class="col-6">Moyenne</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-white mt-2 text-right">
-                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-success"><i class="fa fa-eye  text-success " aria-hidden="true"></i> Suivre</a> 
+                                            <div class="col-12 text-right">
+                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-muted"><i class="fa fa-eye  text-danger " aria-hidden="true"></i> Detail</a> 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
+                                <div class="card shadow">
+                                    <div class="card-header bg-white border-none">
+                                        <div class="row ">
+                                            <div class="col-12">
+                                                <h6 class="text-center text-muted"> Informatique</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body " style="background-image:url(../assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:200px;width:100%">
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="row small">
+                                            <div class="col-12 text-right">
+                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-muted"><i class="fa fa-eye  text-danger " aria-hidden="true"></i> Detail</a> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
+                                <div class="card shadow">
+                                    <div class="card-header bg-white border-none">
+                                        <div class="row ">
+                                            <div class="col-12">
+                                                <h6 class="text-center text-muted"> Informatique</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body " style="background-image:url(../assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:200px;width:100%">
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="row small">
+                                            <div class="col-12 text-right">
+                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-muted"><i class="fa fa-eye  text-danger " aria-hidden="true"></i> Detail</a> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
+                                <div class="card shadow">
+                                    <div class="card-header bg-white border-none">
+                                        <div class="row ">
+                                            <div class="col-12">
+                                                <h6 class="text-center text-muted"> Informatique</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body " style="background-image:url(../assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:200px;width:100%">
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="row small">
+                                            <div class="col-12 text-right">
+                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-muted"><i class="fa fa-eye  text-danger " aria-hidden="true"></i> Detail</a> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
+                                <div class="card shadow">
+                                    <div class="card-header bg-white border-none">
+                                        <div class="row ">
+                                            <div class="col-12">
+                                                <h6 class="text-center text-muted"> Informatique</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body " style="background-image:url(../assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:200px;width:100%">
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="row small">
+                                            <div class="col-12 text-right">
+                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-muted"><i class="fa fa-eye  text-danger " aria-hidden="true"></i> Detail</a> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer">
@@ -440,6 +312,31 @@
             </div>
         </div>
         <?php include('footer.php');?>
+        <!-- Modals -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+                </div>
+            </div>
+        </div>
 </body>
+<script>
+    var myModal = document.getElementById('myModal');
+    var myInput = document.getElementById('myInput');
 
+    myModal.addEventListener('shown.bs.modal', function () {
+    myInput.focus()
+    });
+</script>
 </html>
