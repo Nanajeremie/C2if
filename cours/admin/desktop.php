@@ -13,7 +13,7 @@
 							<span class="educate-icon educate-home icon-wrap secondTxt "></span><span class="mini-click-non">Tableau de bord</span></a>
                         </li>
                         <li>
-                            <a class="" href="student-profile.php" aria-expanded="false"><span class="educate-icon educate-student icon-wrap secondTxt"></span><span class="mini-click-non">Mon compte</span></a>
+                            <a class="" href="devoir.php" aria-expanded="false"><span class="educate-icon educate-student icon-wrap secondTxt"></span><span class="mini-click-non">Devoir</span></a>
                         </li>
                         <li>
                             <a class="" href="all-courses.php"><span class="educate-icon educate-course icon-wrap secondTxt"></span><span class="mini-click-non">Cours</span></a>

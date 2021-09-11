@@ -1,4 +1,4 @@
-<div class="footer-copyright-area primeBack">
+    <div class="footer-copyright-area primeBack">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
@@ -70,7 +70,7 @@
     <script src="js/main.js"></script>
     <!-- tawk chat JS
 		============================================ -->
-    <script src="js/tawk-chat.js"></script>
+    <!-- <script src="js/tawk-chat.js"></script> -->
     <script src="js/pdfController.js"></script>
      <!-- data table JS
 		============================================ -->
@@ -91,3 +91,4 @@
     <script src="js/editable/bootstrap-datetimepicker.js"></script>
     <script src="js/editable/bootstrap-editable.js"></script>
     <script src="js/editable/xediable-active.js"></script>
+    <script src="js/function.js"></script>

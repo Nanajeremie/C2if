@@ -146,7 +146,7 @@
                                                     <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
                                                 </a>
                                             <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
-                                                <li><a href="#"><span class="edu-icon edu-home-admin author-log-ic"></span>My Account</a>
+                                                <li><a href="devoir.php"><span class="edu-icon edu-home-admin author-log-ic"></span>Devoir</a>
                                                 </li>
                                                 <li><a href="#"><span class="edu-icon edu-user-rounded author-log-ic"></span>My Profile</a>
                                                 </li>
@@ -615,7 +615,7 @@
                             <ul class="mobile-menu-nav">
                                 <li><a  href="index.php">Acceuil <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                 </li>
-                                <li><a href="events.php">Event</a></li>
+                                <li><a href="devoir.php">Devoir</a></li>
                                 <li><a href="student-profile.php">Students <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                 </li>
                                 <li><a data-toggle="collapse" data-target="#demo" href="#">Mailbox <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
