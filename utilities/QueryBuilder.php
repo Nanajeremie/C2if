@@ -537,8 +537,8 @@ class QueryBuilder
                 foreach ($sessions as $key)
                 {
                    setSession($key, $ligne[$key]);
+                   
                 }
-                
                 foreach ($return as $key)
                 {
                     array_push($check, $ligne[$key]);

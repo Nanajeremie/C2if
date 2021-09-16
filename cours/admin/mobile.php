@@ -616,6 +616,7 @@
                                 <li><a  href="index.php">Acceuil <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                 </li>
                                 <li><a href="devoir.php">Devoir</a></li>
+                                <li><a href="confirm.php">Confirmation</a></li>
                                 <li><a href="student-profile.php">Students <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                 </li>
                                 <li><a data-toggle="collapse" data-target="#demo" href="#">Mailbox <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>

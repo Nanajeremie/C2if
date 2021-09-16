@@ -4,7 +4,7 @@ $obj = new QueryBuilder();
 $subjects = $obj->Select('subject',[],[]);
 !isset($_GET['idMatiere'])? $courses = $obj->Select('course',[],[]) : $courses = $obj->Select('course',[],['IDSUBJECT'=>$_GET['idMatiere']]);
 
-
+// var_dump($courses->fetchAll());
 
 ?>
 
@@ -104,7 +104,7 @@ $subjects = $obj->Select('subject',[],[]);
                             <?php while ($subject=$subjects->fetch()): ?>
                                 <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
                                     <a href="cours.php?idMatiere=<?=$subject['IDSUBJECT']?>">
-                                        <button class="btn btn-outline-<?=$subject['COLOR']?> w-100" type="button"><?=$subject['SUBJECTNAME']?></button>
+                                        <button class="btn w-100" type="button"><?=$subject['SUBJECTNAME']?></button>
                                     </a>
                                 </div>
                             <?php endwhile;?>
@@ -116,8 +116,8 @@ $subjects = $obj->Select('subject',[],[]);
                         <div class="row">
                             <?php while($course=$courses->fetch()): $matiere=$obj->Select('subject',[],['IDSUBJECT'=>$course['IDSUBJECT']])->fetch();?>
                                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card border-<?=$matiere['COLOR']?>">
-                                    <div class="card-header bg-<?=$matiere['COLOR']?>">
+                                <div class="card ">
+                                    <div class="card-header ">
                                         <div class="row ">
                                             <div class="col-3">
                                                 <h5 class="text-end text-white">Prix</h5>
@@ -129,7 +129,7 @@ $subjects = $obj->Select('subject',[],[]);
                                     </div>
                                     <div class="card-body " style="background-image:url(assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:250px;width:100%">
                                     </div>
-                                    <div class="card-footer border-<?=$matiere['COLOR']?> bg-<?=$matiere['COLOR']?>">
+                                    <div class="card-footer">
                                         <div class="row small">
                                             <div class="col-4 text-white">
                                                 <i class="fa fa-clock fa-1x text-white" aria-hidden="true"></i> <?=$course['DURATION']?> jours

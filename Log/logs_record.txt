@@ -22,3 +22,7 @@
 21| 09/08/2021 12:33:45| Guest | INSERTION | jerenana, b479279b92826acfb7607f1248f89a97, nanajeremie097@gmail.com, 65384473, learner| users
 22| 09/08/2021 12:33:45| Guest | INSERTION | learner120210908, 1, Nana, Jeremie| learner
 23| 09/08/2021 12:34:13| Guest | Connexion | Connected Successfully| users
+24| 09/16/2021 13:20:39| Guest | Connexion | Connected Successfully| users
+25| 09/16/2021 14:19:01| jerenana | Connexion | Connected Successfully| users
+26| 09/16/2021 14:21:26| jerenana | Connexion | Connected Successfully| users
+27| 09/16/2021 14:36:02| jerenana | Connexion | Connected Successfully| users

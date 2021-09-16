@@ -1,11 +1,15 @@
 <?php
 include("../utilities/QueryBuilder.php");
 $obj=new QueryBuilder();
+if(isset($_SESSION['IDUSER'])){
+    echo $_SESSION['IDUSER'];
+}
 isset($_SESSION['IDUSER'])?
     $userInfo=$obj->Requete("SELECT * FROM learner, users
                                         WHERE learner.IDUSER=users.IDUSER
                                         AND users.IDUSER=".$_SESSION['IDUSER'])
     :$userInfo=null;
+
 
 isset($_GET['idCourse'])?
     $coursInfo=$obj->Requete("SELECT * FROM course, subject

@@ -92,3 +92,5 @@
     <script src="js/editable/bootstrap-editable.js"></script>
     <script src="js/editable/xediable-active.js"></script>
     <script src="js/function.js"></script>
+    <script src="js/notifications/Lobibox.js"></script>
+    <script src="js/notifications/notification-active.js"></script>

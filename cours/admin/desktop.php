@@ -16,6 +16,9 @@
                             <a class="" href="devoir.php" aria-expanded="false"><span class="educate-icon educate-student icon-wrap secondTxt"></span><span class="mini-click-non">Devoir</span></a>
                         </li>
                         <li>
+                            <a class="" href="confirm.php" aria-expanded="false"><span class="educate-icon educate-student icon-wrap secondTxt"></span><span class="mini-click-non">Confirmation</span></a>
+                        </li>
+                        <li>
                             <a class="" href="all-courses.php"><span class="educate-icon educate-course icon-wrap secondTxt"></span><span class="mini-click-non">Cours</span></a>
                         </li>
                         <li>

@@ -71,8 +71,11 @@ h1, h2, h3, h4, h5, h6 {
   }
   .cardBor{
     border: 1px solid hsl(214, 6%, 77%);
-    
   }
+  .niceBgBleu{
+      background-color:#1f71d3 !important;
+  }
+  
 a {transition: all 0.3s ease 0s;text-decoration:none;}
 a:hover{
   color: #ec4445;
