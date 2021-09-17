@@ -138,7 +138,7 @@ $subjects = $obj->Select('subject',[],[]);
                                                  <i class="fa fa-chart-bar fa-1x text-white" aria-hidden="true"></i> <?=$course['LEVEL']?>
                                             </div>
                                             <div class="col-4 text-white ">
-                                            <a href="cours_details.php"><i class="fa fa-eye fa-1x text-white" aria-hidden="true"></i> Suivre</a> 
+                                            <a href="cours_details.php?idCourse=<?=$course['IDCOURSE']?>"><i class="fa fa-eye fa-1x text-white" aria-hidden="true"></i> Suivre</a> 
                                             </div>
                                         </div>
                                     </div>

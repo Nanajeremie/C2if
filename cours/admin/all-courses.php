@@ -272,7 +272,6 @@
                 var course_categories =$("#course-cat option:selected").val();
                 var course_level =$("#course-level option:selected").val();
                 var course_desc=$("#course-description").val();
-                var iscomment = 0;
                 
                 if(course_titre =="" || course_price =="" || course_desc =="" || course_categories=="" || $('#course-img')[0].files.length === 0 || $('#course-content')[0].files.length === 0){
                     $("#submitError").html('Tout les champs sont obligatoire');

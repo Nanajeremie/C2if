@@ -44,7 +44,24 @@ if(isset($_POST['cat_list_key'])){
    echo $string;
 }
 
-?>
+// @Jeremie => Validation de la souscription
+if(isset($_FILES['learner_img'])){
+
+   include_once('../functions.php');
+   $keys = array('learner_img');
+   $num = img_process($keys,'../../assets/learner_preuve');
+  echo json_encode($num);
+}
+
+if(isset($_POST['sus_key'])){
+   extract($_POST);
+   echo $learner_postal;
+   $addLerner = $obj->Requete("INSERT INTO subcription(IDCOURSE,MATRICULE,AMOUNTPAID, SUBSCRIPTIONDATE,READINGPAGE,IMG,ADRESS,POSTAL,PAIEMENT_TYPE,COUNTRY,PROMO,PHONE) VALUES(10,'".$id_user."',$amount,'".$suscrip_date."',0,'".$file_name."','".$learner_address."','".$learner_postal."','".$payement_type."','".$learner_country."','fbhegegehvegvheg','".$learner_phone."')");
+   var_dump($addLerner);
+   // echo 1;
+}
+
+?>  
 
 
 
