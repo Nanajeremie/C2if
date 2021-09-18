@@ -127,7 +127,7 @@ isset($_GET['idCourse'])?
         <?php if(isset($userInfo) AND isset($coursInfo)):$userInfo=$userInfo->fetch();
         $coursInfo=$coursInfo->fetch();
         ?>
-            <form method="post" action="">
+            <form method="post" action="#" id="suscription-form">
                 <div class="row" id="back">
                     <div class="col-sm-12 col-md-5 col-lg-4">
                         <div class="card shadow mt-5 bg-danger border-light">
@@ -160,8 +160,8 @@ isset($_GET['idCourse'])?
                                     <div class="col-12 mt-4">
                                         <div class="row">
                                             <div class="input-group col-sm-12 col-md-6 mb-3">
-                                                <input type="text" name="id_user" id="id_user" value="<?php echo $userInfo['MATRICULE']?>" hidden>
-                                                <input type="text" name=" $id_course" id=" id_course" value="<?php echo $id_course?>" hidden >
+                                                <input type="text" name="id_user" id="id-user" value="<?php echo $userInfo['MATRICULE']?>" hidden>
+                                                <input type="text" name=" id_course" id="id-course" value="<?php echo $id_course?>" hidden >
                                                 <input value="<?=$userInfo['LASTNAME']?>" name="learner-lname" type="text" id="learner-name" class="form-control" placeholder="Nom" readonly>
                                             </div>
                                             <div class="input-group col-sm-12 col-md-6 mb-3">
@@ -357,8 +357,8 @@ isset($_GET['idCourse'])?
             // cette fonction est charger d'envoyer un nouveau post  learner-name
 
             function uploadData(){
-                var id_user =$("#id_user").val();
-                var id_course =$("#id_course").val();
+                var id_user =$("#id-user").val();
+                var id_course =$("#id-course").val();
                 var learner_fame =$("#learner-fame").val();
                 var learner_lame =$("#learner-lame").val();
                 var learner_email =$("#learner-email").val();
@@ -369,6 +369,7 @@ isset($_GET['idCourse'])?
                 var learner_promo=$("#learner-promo").val();
                 var learner_agree=$("#learner-agree");
                 var learner_pay_mod=$("input[name='learner-pay-mod']:checked").val();
+                // console.log("id_user: "+id_user+" Id_couse: "+id_course+" FName: "+learner_fame+" Postal: "+learner_postal+" Pnone: "+learner_phone);
                 if($('#learner-validate-img')[0].files.length === 0){
                     $("#validateError").html("Veuillez selectionner la preuve");
                     $("#validateError").css('color','red');
@@ -414,9 +415,8 @@ isset($_GET['idCourse'])?
                                     }, function (donnees){
                                         console.log(donnees);
                                             if(donnees == 1){
-                                                $("#validateError").html("Le cours a été ajouté avec succès");
-                                                $("#validateError").css('color','green');
-                                                document.getElementById("course-form").reset();
+                                                document.getElementById("suscription-form").reset();
+                                                window.location.replace("http://localhost/C2if/C2if/cours/learner/");
                                                 }
                                             else{
                                                 $("#validateError").html("Echec d'enregistrement");
