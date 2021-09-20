@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="16f46260-2047-403f-af5f-ddf6235d490a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/cours/cours.php" beforeDir="false" afterPath="$PROJECT_DIR$/cours/cours.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cours/cours_details.php" beforeDir="false" afterPath="$PROJECT_DIR$/cours/cours_details.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cours/learner/all-courses.php" beforeDir="false" afterPath="$PROJECT_DIR$/cours/learner/all-courses.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cours/learner/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/cours/learner/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cours/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/cours/register.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/C2ifDB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/C2ifDB.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,10 +40,23 @@
       <workItem from="1628529365543" duration="1452000" />
       <workItem from="1628983076469" duration="418000" />
       <workItem from="1628983519124" duration="26141000" />
+      <workItem from="1631916947773" duration="1031000" />
+      <workItem from="1631983540980" duration="1174000" />
+      <workItem from="1632004566284" duration="7364000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="566" y="94" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1631983599783">
+      <screen x="0" y="0" width="1536" height="821" />
+    </state>
+    <state x="566" y="94" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.821@0.0.1536.821" timestamp="1631983599783" />
+    <state x="425" y="186" key="run.anything.popup" timestamp="1632070008846">
+      <screen x="0" y="0" width="1536" height="821" />
+    </state>
+    <state x="425" y="186" key="run.anything.popup/0.0.1536.821@0.0.1536.821" timestamp="1632070008846" />
   </component>
 </project>
