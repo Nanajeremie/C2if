@@ -72,9 +72,9 @@ $subjects = $obj->Select('subject',[],[]);
                                     <div class="analytics-content">
                                         <h5><?=$progresse['COURSETITLE']?></h5>
                                         <h2><span class="h5"> <a href="#">Continuer la lecture</a></span> <span class="tuition-fees">Progression</span></h2>
-                                        <span class="text-<?=$progresse['COLOR']?>"><?=$progresse['PROGRESS']?>%</span>
+                                        <span class="text-primary"><?=$progresse['PROGRESS']?>%</span>
                                         <div class="progress m-b-0">
-                                            <div class="progress-bar progress-bar-<?=$progresse['COLOR']?>" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:20%;"> <span class="sr-only"><?=$progresse['PROGRESS']?>% Complete</span> </div>
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="<?=$progresse['PROGRESS']==0?"width:1%":"width:".$progresse['PROGRESS']."%"?>;"> <span class="sr-only"><?=$progresse['PROGRESS']?>% Complete</span> </div>
                                         </div>
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@ $subjects = $obj->Select('subject',[],[]);
                             <?php while ($subject=$subjects->fetch()): ?>
                             <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
                                 <a href="all-courses.php?idMatiere=<?=$subject['IDSUBJECT']?>">
-                                    <button class="btn btn-outline-<?=$subject['COLOR']?> w-100" type="button"><?=$subject['SUBJECTNAME']?></button>
+                                    <button class="btn btn-outline-primary w-100" type="button"><?=$subject['SUBJECTNAME']?></button>
                                 </a>
                             </div>
                             <?php endwhile;?>
@@ -115,38 +115,39 @@ $subjects = $obj->Select('subject',[],[]);
                         <div class="row">
                             <?php while($course=$courses->fetch()): $matiere=$obj->Select('subject',[],['IDSUBJECT'=>$course['IDSUBJECT']])->fetch();?>
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card border-<?=$matiere['COLOR']?> shadow">
-                                    <div class="card-header bg-<?=$matiere['COLOR']?>">
-                                        <div class="row ">
-                                            <div class="col-12">
-                                                <h6 class="text-center text-white"> <?=$course['COURSETITLE']?></h6>
+                                <div class="card border border-primary shadow ">
+                                    <div class="card-body ">
+                                        <div class="row justify-content-center">
+                                            <div class="col-10">
+                                                <img src="../assets/fichier_cours/<?=$course['COURSCOVER']?>" alt="" width="100%" height="100px">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="card-body " style="background-image:url(../assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:200px;width:100%">
-                                    </div>
-                                    <div class="card-footer border-<?=$matiere['COLOR']?> bg-<?=$matiere['COLOR']?>">
+                                        <div class="row ">
+                                            <div class="col-12">
+                                                <h6 class="text-center text-muted my-3"> <?=$course['COURSETITLE']?></h6>
+                                            </div>
+                                        </div>
                                         <div class="row small">
-                                            <div class="col-12 text-white">
+                                            <div class="col-12 ">
                                                 <div class="row">
-                                                    <div class="col-6"><Strong>Durée: </Strong></div>
-                                                    <div class="col-6"><?=isset($course['DURATION'])?$course['DURATION'].' jours':'Indefinie'?> </div>
+                                                    <div class="col-4"><Strong>Durée: </Strong></div>
+                                                    <div class="col-8"><?=isset($course['DURATION'])?$course['DURATION'].' jours':'Indefinie'?> </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12 text-white">
+                                            <div class="col-12 ">
                                                 <div class="row">
-                                                    <div class="col-6"><Strong>Prix: </Strong></div>
-                                                    <div class="col-6"><?=$course['AMOUNT']?> Fcfa</div>
+                                                    <div class="col-4"><Strong>Prix: </Strong></div>
+                                                    <div class="col-8"><?=$course['AMOUNT']?> Fcfa</div>
                                                 </div>
                                             </div>
-                                            <div class="col-12 text-white">
+                                            <div class="col-12 ">
                                                 <div class="row">
-                                                    <div class="col-6"><Strong>Difficulté: </Strong></div>
-                                                    <div class="col-6"><?=$course['LEVEL']?></div>
+                                                    <div class="col-4"><Strong>Niveau: </Strong></div>
+                                                    <div class="col-8"><?=$course['LEVEL']?></div>
                                                 </div>
                                             </div>
-                                            <div class="col-12 text-white mt-2 text-right">
-                                            <a href="../cours_details.php?idCourse=<?=$course['IDCOURSE']?>" class="btn btn-light px-1 py-0  text-danger"><i class="fa fa-eye  text-danger " aria-hidden="true"></i> Suivre</a>
+                                            <div class="col-12 mt-2 text-center">
+                                            <a href="../cours_details.php?idCourse=<?=$course['IDCOURSE']?>" class="btn btn-primary px-1 py-0  text-white"><i class="fa fa-eye  text-white " aria-hidden="true"></i> Suivre</a>
                                             </div>
                                         </div>
                                     </div>

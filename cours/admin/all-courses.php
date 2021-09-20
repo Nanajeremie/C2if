@@ -21,6 +21,8 @@
     $obj = new QueryBuilder();
     // Selection des categories
     $getCatList = $obj->Requete("select * from subject");
+    //Selection des cours
+    $getCourseList = $obj->Requete("SELECT * FROM course  ORDER BY IDCOURSE DESC");
 
     include('desktop.php');
     
@@ -83,29 +85,36 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
-                                <div class="card shadow">
+                            <?php while($course_list = $getCourseList->fetch()) {?>
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                                <div class="card shadow" style="min-height:260px">
                                     <div class="card-header bg-white border-none">
                                         <div class="row ">
                                             <div class="col-12">
-                                                <h6 class="text-center text-muted"> Informatique</h6>
+                                                <h6 class="text-center text-muted"> <?=$course_list['COURSETITLE']?></h6>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-body " style="background-image:url(../assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:200px;width:100%">
+                                    <div class="card-body ">
+                                        <div class="row justify-content-center">
+                                            <div class="col-10">
+                                                <img src="../assets/fichier_cours/<?=$course_list['COURSCOVER']?>" alt="" height="100px">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="card-footer">
                                         <div class="row small">
                                             <div class="col-6">
-                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-muted"><i class="fa fa-eye  text-primary " aria-hidden="true"></i> Detail</a>
+                                            <button class="btn btn-light px-1 py-0  text-muted"><i class="fa fa-eye  text-primary " aria-hidden="true"></i> Detail</button>
                                             </div>
                                             <div class="col-6 text-right">
-                                            <a href="../cours_details.php" class="btn btn-light px-1 py-0  text-muted"><i class="fa fa-trash-o text-danger " aria-hidden="true"></i> supprimer</a> 
+                                            <button class="btn btn-light px-1 py-0  text-muted"><i class="fa fa-trash-o text-danger " aria-hidden="true"></i> supprimer</button> 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <?php } ?>
                         </div>
                     </div>
                     <div class="card-footer">

@@ -60,6 +60,28 @@ if(isset($_POST['sus_key'])){
    echo 1;
 }
 
+//refresh subcription page
+
+if(isset($_POST['sub_ref_key'])){
+   $getSub = $obj->Requete("SELECT * FROM course c, subcription s, subject su WHERE c.IDCOURSE = s.IDCOURSE AND su.IDSUBJECT=c.IDSUBJECT");
+   $string = " ";
+   $cpt = 1; while($subList = $getSub->fetch()){
+      $string.='<tr>
+          <td>'.$cpt.'</td>
+          <td> <a data-toggle="modal" href="#viewImage"><img src="../assets/learner_preuve/'.$subList['IMG'].'" alt="" onclick="bigImage("'.$subList['IMG'].'")" /></a> 
+          </td> <td>'.$subList['SUBJECTNAME'].'</td>
+          <td>'.$subList['COURSETITLE'].'</td>
+          <td>'.$subList['AMOUNT'].' F CFA</td>
+          <td>'.$subList['SUBSCRIPTIONDATE'].'</td>
+          <td>'.$subList['PHONE'].'</td>
+          <td>
+              <button  title="Edit" class="pd-setting-ed"  data-toggle="modal" href="#validePay"><i class="fa fa-check text-success" aria-hidden="true"></i></button>
+              <button title="Trash" class="pd-setting-ed" data-toggle="modal" href="#rejectPay"><i class="fa fa-trash-o text-danger" aria-hidden="true"></i></button>
+          </td>
+      </tr>';
+      $cpt++;} 
+}
+echo $string;
 ?>  
 
 

@@ -1,12 +1,20 @@
 <?php
 include("../utilities/QueryBuilder.php");
 $obj = new QueryBuilder();
-$subjects = $obj->Select('subject',[],[]);
-!isset($_GET['idMatiere'])? $courses = $obj->Select('course',[],[]) : $courses = $obj->Select('course',[],['IDSUBJECT'=>$_GET['idMatiere']]);
 
-// var_dump($courses->fetchAll());
+//on verifie que les sessions existe sinon on le renvoit vers la page de connection
+if(isset($_SESSION['IDUSER'])){
+    $id_user = $_SESSION['IDUSER'];
 
-?>
+    // on verifie qu'il s'est deja inscrit a un cours si oui on le renvoit directement vers son dashbord
+    $check_learner_susp = $obj->Requete("SELECT * from subcription s, learner l WHERE s.MATRICULE = l.MATRICULE AND l.IDUSER='".$id_user."'");
+    if($check_learner_susp->rowCount()>=1){
+       Redirect("learner/");
+    }
+    else{
+        $subjects = $obj->Select('subject',[],[]);
+        !isset($_GET['idMatiere'])? $courses = $obj->Select('course',[],[]) : $courses = $obj->Select('course',[],['IDSUBJECT'=>$_GET['idMatiere']]);
+    ?>
 
 <!doctype html>
 <html class="no-js" lang="zxx">
@@ -95,50 +103,58 @@ $subjects = $obj->Select('subject',[],[]);
         <div class="row">
             <div class="col-12">
                 <div class="card mt-5 cardBor">
-                    <div class="card-header cardBor bg-light">
+                <div class="card-header ">
                         <div class="row">
                             <div class="col-12">
                                 <p class="text-center">Veuillez chosir une categorie pour vour la liste des cours disponible</p>
                             </div>
-
                             <?php while ($subject=$subjects->fetch()): ?>
-                                <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
-                                    <a href="cours.php?idMatiere=<?=$subject['IDSUBJECT']?>">
-                                        <button class="btn w-100" type="button"><?=$subject['SUBJECTNAME']?></button>
-                                    </a>
-                                </div>
+                            <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
+                                <a href="all-courses.php?idMatiere=<?=$subject['IDSUBJECT']?>">
+                                    <button class="btn btn-outline-primary w-100" type="button"><?=$subject['SUBJECTNAME']?></button>
+                                </a>
+                            </div>
                             <?php endwhile;?>
                         </div>
-                    
                     </div>
                     <div class="card-body">
                         <?php if(is_object($courses)):?>
                         <div class="row">
                             <?php while($course=$courses->fetch()): $matiere=$obj->Select('subject',[],['IDSUBJECT'=>$course['IDSUBJECT']])->fetch();?>
                                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card ">
-                                    <div class="card-header ">
-                                        <div class="row ">
-                                            <div class="col-3">
-                                                <h5 class="text-end text-white">Prix</h5>
-                                            </div>
-                                            <div class="col-9">
-                                                <h5 class="text-center text-white"> <?=$course['COURSETITLE']?></h5>
+                                <div class="card border border-primary shadow ">
+                                    <div class="card-body ">
+                                        <div class="row justify-content-center">
+                                            <div class="col-10">
+                                                <img src="assets/fichier_cours/<?=$course['COURSCOVER']?>" alt="" width="100%" height="100px">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="card-body " style="background-image:url(assets/img/formation-elec.jpg);background-size: cover;background-position: center;height:250px;width:100%">
-                                    </div>
-                                    <div class="card-footer">
+                                        <div class="row ">
+                                            <div class="col-12">
+                                                <h6 class="text-center text-muted my-3"> <?=$course['COURSETITLE']?></h6>
+                                            </div>
+                                        </div>
                                         <div class="row small">
-                                            <div class="col-4 text-white">
-                                                <i class="fa fa-clock fa-1x text-white" aria-hidden="true"></i> <?=$course['DURATION']?> jours
+                                            <div class="col-12 ">
+                                                <div class="row">
+                                                    <div class="col-4"><Strong>Durée: </Strong></div>
+                                                    <div class="col-8"><?=isset($course['DURATION'])?$course['DURATION'].' jours':'Indefinie'?> </div>
+                                                </div>
                                             </div>
-                                            <div class="col-4 text-white">
-                                                 <i class="fa fa-chart-bar fa-1x text-white" aria-hidden="true"></i> <?=$course['LEVEL']?>
+                                            <div class="col-12 ">
+                                                <div class="row">
+                                                    <div class="col-4"><Strong>Prix: </Strong></div>
+                                                    <div class="col-8"><?=$course['AMOUNT']?> Fcfa</div>
+                                                </div>
                                             </div>
-                                            <div class="col-4 text-white ">
-                                            <a href="cours_details.php?idCourse=<?=$course['IDCOURSE']?>"><i class="fa fa-eye fa-1x text-white" aria-hidden="true"></i> Suivre</a> 
+                                            <div class="col-12 ">
+                                                <div class="row">
+                                                    <div class="col-4"><Strong>Niveau: </Strong></div>
+                                                    <div class="col-8"><?=$course['LEVEL']?></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 mt-2 text-center">
+                                            <a href="../cours_details.php?idCourse=<?=$course['IDCOURSE']?>" class="btn btn-primary px-1 py-0  text-white"><i class="fa fa-eye  text-white " aria-hidden="true"></i> Suivre</a>
                                             </div>
                                         </div>
                                     </div>
@@ -148,7 +164,7 @@ $subjects = $obj->Select('subject',[],[]);
                         </div>
                         <?php endif;?>
                     </div>
-                    <div class="card-footer cardBor primeBack text-white">Footer</div>
+                    <div class="card-footer "></div>
                 </div>
             </div>
         </div>
@@ -159,7 +175,10 @@ $subjects = $obj->Select('subject',[],[]);
         <?php endif;?>
     </div>
        
-   <?php include'footer2.php';?>
+   <?php } include'footer2.php';} 
+   else{
+       Redirect('index.php');
+    }?>
 	<!-- JS here -->
      
 		<!-- All JS Custom Plugins Link Here here -->

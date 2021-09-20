@@ -1,3 +1,7 @@
+
+
+
+
 -- phpMyAdmin SQL Dump
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
@@ -301,28 +305,6 @@ COLLATE utf8_general_ci DEFAULT NULL,
 (`IDUSER`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`
-IDUSER`,
-`USERNAME
-`, `PASSWORD`, `EMAIL`, `TELEPHONE`, `TYPE`, `IMAGEPROFILE`) VALUES
-(3, 'manu', '202cb962ac59075b964b07152d234b70', 'yaroemmanuelbekassoe', '7118386', 'learner', NULL),
-(4, 'username', '$2y$10$5jljnZLz847CTxsPj1kPnOPuM/5lfQW/c6FL24GFhm4QolHrbZLQO', 'yaroemmanuelbekassoe', '71188386', 'learner', NULL),
-(5, 'manu12', '$2y$10$mwQOkXfLwpzQZLQd1B8CaOr.Sxy09YAiuiCv4G3Jl/xYfm.lM18S.', 'yaroemmanuelbekassoe', '71188386', 'learner', NULL);
-
---
--- Constraints for dumped tables
---
-INSERT INTO `learner` (`
-MATRICULE`,
-`IDUSER
-`, `LASTNAME`, `LEARNERFIRSTNAME`, `STATUT`) VALUES
-('learner320210813', 3, 'Yaro', 'Emmanuel', NULL),
-('learner420210813', 4, 'Yaro', 'Emmanuel', NULL),
-('learner520210813', 5, 'Yaro', 'Emmanuel', NULL);
 
 --
 -- Constraints for table `admin`

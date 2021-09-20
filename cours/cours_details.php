@@ -416,7 +416,7 @@ isset($_GET['idCourse'])?
                                         console.log(donnees);
                                             if(donnees == 1){
                                                 document.getElementById("suscription-form").reset();
-                                                window.location.replace("http://localhost/C2if/C2if/cours/learner/");
+                                                window.location.replace("http://localhost/C2if/cours/learner");
                                                 }
                                             else{
                                                 $("#validateError").html("Echec d'enregistrement");

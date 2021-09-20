@@ -49,30 +49,34 @@
                                                     <option value="">Mine</option>
                                                 </select>
                                             </div>
-                                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
-                                                <label for="test-time" class="col-12">Titre: </label>
-                                                <input type="number" name="test-time" id="test-time" class="form-control" placeholder="La duree">
+                                            <div class=" mb-5 col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                                                <label for="test-time" class="col-12">Duree du devoir: </label>
+                                                <input type="number" name="test-time" id="test-time" class="form-control" placeholder="La duree du devoir">
                                             </div>
-                                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
-                                                <label for="course-price" class="col-12">Prix: </label>
-                                                <input type="number" name="course-price" id="course-price" class="form-control" placeholder="Prix du cours">
-                                            </div>
-                                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
-                                                <label for="course-img" class="col-12">Image de couverture: </label>
-                                                <input type="file" name="course-img" id="course-img" class="form-control">
-                                            </div>
-                                            <div class="col-12 form-group ">
-                                                <label for="course-content" class="col-12">Fichier: </label>
-                                                <input type="file" name="course-content" id="course-content" class="form-control ">
+
+                                            <div class="col-12 form-group">
+                                                <input type="button" id="test_start" class="btn btn-success" value="creer le devoir">
                                             </div>
                                             <div class="col-12 form-group">
-                                                <label class="col-12" for="course-description">Description: </label>
-                                                <textarea type="text" name="course-description" id="course-description" class="form-control" placeholder="Decrire le cours"></textarea>
+                                                <input type="text" name="#" id="#" class=" col-12 form-control" placeholder="Saisir la question N1:">
                                             </div>
+                                            <div class="col-12">
+                                                <input type="button" value="Ajouter une reponse" id="test-ans" class="btn btn-warning">
+                                            </div>
+                                            <div class="row col-12 mt-4">
+                                                <div class="col-1 form-group">
+                                                   <input type="checkbox" name="#" id="#" class=" iCheck-helper form-control " checked>
+                                                </div>
+                                                <div class="col-11 form-group">
+                                                    <input type="text" name="#" id="#" class="form-control">
+                                                </div>
+                                            </div>
+                                            
                                             <div class="col-12 text-right">
                                                 <input type="reset" name="course-reset" id="course-reset" class="btn btn-secondary text-white" value="Annuler">
                                                 <input type="button" name="course-add" id="course-add" class="btn btn-primary text-white" onclick="addForm('put','input','Note')" value="Ajouter">
                                             </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
