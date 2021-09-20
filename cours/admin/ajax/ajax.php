@@ -55,15 +55,14 @@ if(isset($_FILES['learner_img'])){
 
 if(isset($_POST['sus_key'])){
    extract($_POST);
-   $addLerner = $obj->Requete("INSERT INTO subcription(IDCOURSE,MATRICULE,AMOUNTPAID, SUBSCRIPTIONDATE,READINGPAGE,IMG,ADRESS,POSTAL,PAIEMENT_TYPE,COUNTRY,PROMO,PHONE) VALUES(10,'".$id_user."',$amount,'".$suscrip_date."',0,'".$file_name."','".$learner_address."','".$learner_postal."','".$payement_type."','".$learner_country."','fbhegegehvegvheg','".$learner_phone."')");
-   
+   $addLerner = $obj->Requete("INSERT INTO subcription(IDCOURSE,MATRICULE,AMOUNTPAID, SUBSCRIPTIONDATE,READINGPAGE,IMG,ADRESS,POSTAL,PAIEMENT_TYPE,COUNTRY,PROMO,PHONE) VALUES(10,'".$id_user."',$amount,'".$suscrip_date."',0,'".$file_name."','".$learner_address."','".$learner_postal."','".$payement_type."','".$learner_country."','non','".$learner_phone."')");
    echo 1;
 }
 
 //refresh subcription page
 
 if(isset($_POST['sub_ref_key'])){
-   $getSub = $obj->Requete("SELECT * FROM course c, subcription s, subject su WHERE c.IDCOURSE = s.IDCOURSE AND su.IDSUBJECT=c.IDSUBJECT");
+   $getSub = $obj->Requete("SELECT * FROM course c, subcription s, subject su WHERE c.IDCOURSE = s.IDCOURSE AND su.IDSUBJECT=c.IDSUBJECT AND s.ACCEPT=1");
    $string = " ";
    $cpt = 1; while($subList = $getSub->fetch()){
       $string.='<tr>
@@ -75,15 +74,27 @@ if(isset($_POST['sub_ref_key'])){
           <td>'.$subList['SUBSCRIPTIONDATE'].'</td>
           <td>'.$subList['PHONE'].'</td>
           <td>
-              <button  title="Edit" class="pd-setting-ed"  data-toggle="modal" href="#validePay"><i class="fa fa-check text-success" aria-hidden="true"></i></button>
-              <button title="Trash" class="pd-setting-ed" data-toggle="modal" href="#rejectPay"><i class="fa fa-trash-o text-danger" aria-hidden="true"></i></button>
+          <button  title="Edit" class="pd-setting-ed"  data-toggle="modal" href="#validePay" onclick="setValId('.htmlspecialchars($subList["IDSUBCRIPTION"]).')"><i class="fa fa-check text-success" aria-hidden="true"></i></button>
+          <button title="Trash" class="pd-setting-ed" data-toggle="modal" href="#rejectPay" onclick="setDelId('.htmlspecialchars($subList["IDSUBCRIPTION"]).')"><i class="fa fa-trash-o text-danger" aria-hidden="true"></i></button>
           </td>
       </tr>';
       $cpt++;} 
+      echo $string;
 }
-echo $string;
-?>  
 
+// valider paiement
+if(isset($_POST['vali_key'])){
+   extract($_POST);
+   $validePay = $obj->Requete("UPDATE subcription SET ACCEPT=2 WHERE IDSUBCRIPTION='".$val_id."'");
+   echo 1;
+}
+if(isset($_POST['del_key'])){
+   extract($_POST);
+   $rejectPay = $obj->Requete("UPDATE subcription SET ACCEPT=0 WHERE IDSUBCRIPTION='".$del_id."'");
+   echo 1;
+}
+
+?>  
 
 
 

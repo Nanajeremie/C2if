@@ -28,3 +28,15 @@
 27| 09/16/2021 14:36:02| jerenana | Connexion | Connected Successfully| users
 28| 09/17/2021 08:48:40| Guest | Connexion | Connected Successfully| users
 29| 09/18/2021 08:42:13| Guest | Connexion | Connected Successfully| users
+30| 09/20/2021 14:14:31| Guest | INSERTION | vex, 89e3150706fadb5be2ac7ecd81fdaa16, nana@gmail.com, 5645645, learner| users
+31| 09/20/2021 14:14:31| Guest | INSERTION | learner320210920, 3, vex, vex| learner
+32| 09/20/2021 14:14:41| Guest | Connexion | Connected Successfully| users
+33| 09/20/2021 15:41:29| Guest | Connexion | Connected Successfully| users
+34| 09/20/2021 15:42:03| vex | INSERTION | nana, 518d5f3401534f5c6c21977f12f60989, nanajeremie097@gmail.com, 56656, learner| users
+35| 09/20/2021 15:42:03| vex | INSERTION | learner420210920, 4, nana, nana| learner
+36| 09/20/2021 15:42:10| vex | Connexion | Connected Successfully| users
+37| 09/20/2021 18:59:31| Guest | Connexion | Connection Rejected| users
+38| 09/20/2021 18:59:39| Guest | Connexion | Connection Rejected| users
+39| 09/20/2021 19:00:18| Guest | INSERTION | boss, ceb8447cc4ab78d2ec34cd9f11e4bed2, boss@gmail.com, 45213123, learner| users
+40| 09/20/2021 19:00:18| Guest | INSERTION | learner520210920, 5, boss, boss| learner
+41| 09/20/2021 19:00:28| Guest | Connexion | Connected Successfully| users

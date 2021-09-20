@@ -11,34 +11,42 @@ function convertDate($date, $format ){
 
 include("../utilities/QueryBuilder.php");
 $obj=new QueryBuilder();
-// on recupere la date actuelle dans le serveur
-$curretDate = $obj->Requete("SELECT NOW() AS Date");
-$curretDate = $curretDate->fetch();
-$simpleDate =$curretDate['Date'];
-$curretDate = convertDate($simpleDate,'j F Y');
-
 
 if(isset($_SESSION['IDUSER'])){
     $id_user = $_SESSION['IDUSER'];
-    
-}
-isset($_SESSION['IDUSER'])?
-    $userInfo=$obj->Requete("SELECT * FROM learner, users
-                                        WHERE learner.IDUSER=users.IDUSER
-                                        AND users.IDUSER=".$_SESSION['IDUSER'])
-    :$userInfo=null;
 
-
-isset($_GET['idCourse'])?
-    $coursInfo=$obj->Requete("SELECT * FROM course, subject
-                                        WHERE subject.IDSUBJECT=course.IDSUBJECT
-                                        AND course.IDCOURSE=".$_GET['idCourse'])
-    :$coursInfo=null;
+    // on recupere la date actuelle dans le serveur
+    $curretDate = $obj->Requete("SELECT NOW() AS Date");
+    $curretDate = $curretDate->fetch();
+    $simpleDate =$curretDate['Date'];
+    $curretDate = convertDate($simpleDate,'j F Y');
 
     // @jeremie recuperation de l'id du cours
     if(isset($_GET['idCourse'])){
         $id_course =$_GET['idCourse'];
     }
+
+    // on verifie s'il n'a pas des paiments innachever
+    $check_Pay_No_Done = $obj->Requete("SELECT * FROM subcription s, learner l WHERE s.MATRICULE=l.MATRICULE AND s.ACCEPT!=2 AND l.IDUSER='".$id_user."'");
+    
+    // On verify s'il n'avait pas deja envoye la preuve du cours courant
+    $check_Current_Pay_No_Done = $obj->Requete("SELECT * FROM subcription s, learner l WHERE s.MATRICULE=l.MATRICULE AND s.ACCEPT=1 AND s.IDCOURSE='".$id_course."' AND l.IDUSER='".$id_user."'");
+    // var_dump($check_Current_Pay_No_Done->fetchAll());
+
+    isset($_SESSION['IDUSER'])?
+        $userInfo=$obj->Requete("SELECT * FROM learner, users
+                                            WHERE learner.IDUSER=users.IDUSER
+                                            AND users.IDUSER=".$_SESSION['IDUSER'])
+        :$userInfo=null;
+
+
+    isset($_GET['idCourse'])?
+        $coursInfo=$obj->Requete("SELECT * FROM course, subject
+                                            WHERE subject.IDSUBJECT=course.IDSUBJECT
+                                            AND course.IDCOURSE=".$_GET['idCourse'])
+        :$coursInfo=null;
+
+    
 ?>
 
 <!doctype html>
@@ -236,7 +244,7 @@ isset($_GET['idCourse'])?
                         <div class="card shadow mt-5 primeBack border-light">
                             <div class="card-body bg-white ml-2">
                                 <div class="row mb-3 justify-content-start">
-                                    <div class="col-12 primeTxt uppercase mb-3 text-center font-weight-bold">Derniere etape</div>
+                                    <div class="col-12 primeTxt uppercase mb-3 text-center font-weight-bold">Finaliser le paiement</div>
                                     <div class="col-12"> <i class="fa fa-money-check fa-1x text-muted " aria-hidden="true"></i><b class="text-danger">Montant total: <?=$coursInfo['AMOUNT']?> Fcfa</b><input type="text" name="course-amount" id="course-amount" value="<?=$coursInfo['AMOUNT']?>" hidden><input type="text" name="souscript-date" id="souscript-date" value="<?=$simpleDate?>" hidden></div>
                                 </div>
                                 <p class="col-12 mb-2">Pour valider votre paiement, veuillez faire un depot du montant ci-dessus sur le numero <b class="text-danger">+226 66 66 66 66</b> et prenez une capture d'ecran du message de confirmation ensuite vous selectionner l'image du caputre d'ecran en cliquant sur le button <b class="primeTxt ">Image de Confirmation</b>  en dessous et cliquer sur <b class="text-success">Valider</b> pour teminer</p>
@@ -266,6 +274,28 @@ isset($_GET['idCourse'])?
                             </div>
                         </div>
                     </div>
+                    <div class="row justify-content-center d-none" id="start">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="card shadow mt-5 primeBack border-light">
+                                <div class="card-body bg-white ml-2">
+                                    <div class="row mb-3 justify-content-start">
+                                        <div class="col-12 primeTxt uppercase mb-3 text-center font-weight-bold">Etape de confirmation</div>
+                                    </div>
+                                    <p class="col-12 mb-2">Vous etes a la derniere etape. Veuillez patienter, votre preuve de paiement est en cours de verification.<br> Une fois la verification terminer, vous pouvez commencer la lecture juste en cliquant sur le button <strong class="text-danger">Commencer La lecture</strong></p>
+                                    <div class="row mt-2">
+                                        <div class="col-12 text-dark font-weight-bold">
+                                            <div class="row mt-3 justify-content-center">
+                                                <div class="col-6 text-right">
+                                                    <button  class="btn btn-success" type="button" onclick="checkConfirm()"> Commencer la lecture</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mt-3" id="readError"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
 
@@ -277,7 +307,9 @@ isset($_GET['idCourse'])?
 
     </div>
 
-   <?php include'footer2.php';?>
+   <?php  include'footer2.php';} else{
+       Redirect('index.php');
+   }?>
 	<!-- JS here -->
      
 		<!-- All JS Custom Plugins Link Here here -->
@@ -369,7 +401,7 @@ isset($_GET['idCourse'])?
                 var learner_promo=$("#learner-promo").val();
                 var learner_agree=$("#learner-agree");
                 var learner_pay_mod=$("input[name='learner-pay-mod']:checked").val();
-                // console.log("id_user: "+id_user+" Id_couse: "+id_course+" FName: "+learner_fame+" Postal: "+learner_postal+" Pnone: "+learner_phone);
+               
                 if($('#learner-validate-img')[0].files.length === 0){
                     $("#validateError").html("Veuillez selectionner la preuve");
                     $("#validateError").css('color','red');
@@ -413,7 +445,7 @@ isset($_GET['idCourse'])?
                                         learner_phone:learner_phone,
                                         file_name:response.message,
                                     }, function (donnees){
-                                        console.log(donnees);
+                                        alert(response);
                                             if(donnees == 1){
                                                 document.getElementById("suscription-form").reset();
                                                 window.location.replace("http://localhost/C2if/cours/learner");
@@ -432,6 +464,20 @@ isset($_GET['idCourse'])?
                         });
                     }
                 } 
+            }
+
+            // Verification de la preuve de paiement
+            function checkConfirm(){
+                $.post(
+                    'ajax/ajax.php', {
+                        check_pay:"sub_ref_key",
+                        id_user: id_user,
+                        suscrip_date:$("#souscript-date").val(),
+                    },
+                    function (donnees){
+
+                    //    $("#subBody").html(donnees);
+                    });
             }
 
         </script>
