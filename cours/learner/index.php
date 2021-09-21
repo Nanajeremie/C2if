@@ -4,8 +4,8 @@ $matricule=$_SESSION['IDUSER'];
 //$_SESSION['IDUSER']
 $obj = new QueryBuilder();
 //$subjects = $obj->Select('subject',[],[]);
-isset($matricule)? $progress=$obj->Requete('SELECT * FROM subcription s,course c, learner l WHERE s.IDCOURSE = c.IDCOURSE AND s.MATRICULE= l.MATRICULE AND ISDONE=0 AND l.IDUSER="'.$matricule.'"') : $progress=null;
-isset($matricule)? $performances=$obj->Requete('SELECT * FROM subcription s,course c, learner l WHERE s.IDCOURSE = c.IDCOURSE AND s.MATRICULE= l.MATRICULE AND ISDONE=1 AND l.IDUSER="'.$matricule.'"') : $performances=null;
+isset($matricule)? $progress=$obj->Requete('SELECT * FROM subcription s,course c, learner l WHERE s.IDCOURSE = c.IDCOURSE AND s.MATRICULE= l.MATRICULE AND ISDONE=0 AND l.IDUSER="'.$matricule.'"') : $progress=0;
+isset($matricule)? $performances=$obj->Requete('SELECT * FROM subcription s,course c, learner l WHERE s.IDCOURSE = c.IDCOURSE AND s.MATRICULE= l.MATRICULE AND ISDONE=1 AND l.IDUSER="'.$matricule.'"') : $performances=0;
 
 //var_dump($progress->fetchAll());
 //die();
@@ -32,8 +32,8 @@ isset($matricule)? $performances=$obj->Requete('SELECT * FROM subcription s,cour
         <?php include('mobile.php');?>
         <div class="analytics-sparkle-area">
             <div class="container-fluid">
-                <?php if(is_object($progress) AND $progress!=null):?>
                 <div class="row">
+                <?php if(is_object($progress) AND $progress->rowCount()>=1):?>
                     <?php while($progr=$progress->fetch()):?>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                         <div class="analytics-sparkle-line reso-mg-b-30 shadow">
@@ -48,12 +48,13 @@ isset($matricule)? $performances=$obj->Requete('SELECT * FROM subcription s,cour
                         </div>
                     </div>
                     <?php endwhile;?>
-                </div>
+
                 <?php else:?>
                     <div class="row">
-                        <div class=""> Vous devez vous connecter a votre compte!!!<div>
+                        <div class=""> Auccun cours encours de lecture !!!<div>
                     </div>
                 <?php endif;?>
+                </div>
             </div>
         </div>
         <div class="product-sales-area mg-tb-30">
@@ -92,12 +93,13 @@ isset($matricule)? $performances=$obj->Requete('SELECT * FROM subcription s,cour
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                         <div class="col-12 text-center mb-3 h4 font-weight-bold primeTxt">Cours terminés</div>
-                       <?php if(is_object($performances)):
+                        <div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 res-mg-t-30 table-mg-t-pro-n tb-sm-res-d-n dk-res-t-d-n ">
+
+                        <?php if(is_object($performances) AND $performances->rowCount()>=1):
 
                            while($performance=$performances->fetch()):
                            ?>
 
-                        <div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 res-mg-t-30 table-mg-t-pro-n tb-sm-res-d-n dk-res-t-d-n ">
                             <h3 class="box-title"><?=$performance['COURSETITLE']?></h3>
                             <ul class="list-inline two-part-sp">
                                 <li>
@@ -106,13 +108,19 @@ isset($matricule)? $performances=$obj->Requete('SELECT * FROM subcription s,cour
                                 <li class="text-right sp-cn-r"><i aria-hidden="true" class=fa <?=$performance['MARK']>=10? "fa-level-up text-success":"fa-level-down text-success"?>></i>
                                     <span class="counter <?=$performance['MARK']>=10?'text-success':'text-danger'?>"><?=$performance['MARK']?></span></li>
                             </ul>
-                        </div>
-                       <?php endwhile; else:?>
-                           <div>
-                               <h3>Aucun cours termine</h3>
-                           </div>
-                       <?php endif;?>
 
+                       <?php endwhile; else:?>
+
+                           <div class="text-center">
+                               <h3>Les cours terminés s'afficherons ici</h3>
+
+                           </div>
+                            <div class="profile-img">
+                                <img src="img/profile/vide.png" alt="" />
+                            </div>
+                       <?php endif;?>
+                        </div>
+<!--
 <!--                        <div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 tb-sm-res-d-n dk-res-t-d-n">-->
 <!--                            <h3 class="box-title">CSS</h3>-->
 <!--                            <ul class="list-inline two-part-sp">-->
