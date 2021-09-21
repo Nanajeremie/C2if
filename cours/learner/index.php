@@ -4,7 +4,8 @@ $matricule=$_SESSION['IDUSER'];
 //$_SESSION['IDUSER']
 $obj = new QueryBuilder();
 //$subjects = $obj->Select('subject',[],[]);
-isset($matricule)? $progress=$obj->Requete('SELECT * FROM subcription s,course c, learner l WHERE s.IDCOURSE = c.IDCOURSE AND s.MATRICULE= l.MATRICULE AND l.IDUSER="'.$matricule.'"') : null;
+isset($matricule)? $progress=$obj->Requete('SELECT * FROM subcription s,course c, learner l WHERE s.IDCOURSE = c.IDCOURSE AND s.MATRICULE= l.MATRICULE AND ISDONE=0 AND l.IDUSER="'.$matricule.'"') : $progress=null;
+isset($matricule)? $performances=$obj->Requete('SELECT * FROM subcription s,course c, learner l WHERE s.IDCOURSE = c.IDCOURSE AND s.MATRICULE= l.MATRICULE AND ISDONE=1 AND l.IDUSER="'.$matricule.'"') : $performances=null;
 
 //var_dump($progress->fetchAll());
 //die();
@@ -40,7 +41,7 @@ isset($matricule)? $progress=$obj->Requete('SELECT * FROM subcription s,course c
         <?php include('mobile.php');?>
         <div class="analytics-sparkle-area">
             <div class="container-fluid">
-                <?php if(is_object($progress)):?>
+                <?php if(is_object($progress) AND $progress!=null):?>
                 <div class="row">
                     <?php while($progr=$progress->fetch()):?>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
@@ -48,9 +49,9 @@ isset($matricule)? $progress=$obj->Requete('SELECT * FROM subcription s,course c
                             <div class="analytics-content">
                                 <h5><?=$progr['COURSETITLE']?></h5>
                                 <h2><span class="">03/08/2021</span> <span class="tuition-fees">Progression</span></h2>
-                                <span class="text-success"> <?=$progr['READINGPAGE']?>% </span>
+                                <span class="text-success"> <?=$progr['PROGRESS']?>% </span>
                                 <div class="progress m-b-0">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:<?=$progr['READINGPAGE']?>%;"> <span class="sr-only"><?=$progr['READINGPAGE']?>% Complete</span> </div>
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:<?=$progr['PROGRESS']?>%;"> <span class="sr-only"><?=$progr['PROGRESS']?>% Complete</span> </div>
                                 </div>
                             </div>
                         </div>
@@ -100,44 +101,56 @@ isset($matricule)? $progress=$obj->Requete('SELECT * FROM subcription s,course c
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                         <div class="col-12 text-center mb-3 h4 font-weight-bold primeTxt">Cours terminés</div>
+                       <?php if(is_object($performances)):
+
+                           while($performance=$performances->fetch()):
+                           ?>
+
                         <div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 res-mg-t-30 table-mg-t-pro-n tb-sm-res-d-n dk-res-t-d-n ">
-                            <h3 class="box-title">PHP</h3>
+                            <h3 class="box-title"><?=$performance['COURSETITLE']?></h3>
                             <ul class="list-inline two-part-sp">
                                 <li>
                                     <div id="sparklinedash"></div>
                                 </li>
-                                <li class="text-right sp-cn-r"><i class="fa fa-level-up" aria-hidden="true"></i> <span class="counter text-primary">1500</span></li>
+                                <li class="text-right sp-cn-r"><i aria-hidden="true" class=fa <?=$performance['MARK']>=10? "fa-level-up text-success":"fa-level-down text-success"?>></i>
+                                    <span class="counter <?=$performance['MARK']>=10?'text-success':'text-danger'?>"><?=$performance['MARK']?></span></li>
                             </ul>
                         </div>
-                        <div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 tb-sm-res-d-n dk-res-t-d-n">
-                            <h3 class="box-title">CSS</h3>
-                            <ul class="list-inline two-part-sp">
-                                <li>
-                                    <div id="sparklinedash2"></div>
-                                </li>
-                                <li class="text-right graph-two-ctn"><i class="fa fa-level-up" aria-hidden="true"></i> <span class="counter text-purple">3000</span></li>
-                            </ul>
-                        </div>
-                        <div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 tb-sm-res-d-n dk-res-t-d-n">
-                            <h3 class="box-title">JAVA</h3>
-                            <ul class="list-inline two-part-sp">
-                                <li>
-                                    <div id="sparklinedash3"></div>
-                                </li>
-                                <li class="text-right graph-two-ctn"><i class="fa fa-level-down text-success" aria-hidden="true"></i> <span class="text-success"><span class="counter">50</span>%</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="white-box analytics-info-cs table-dis-n-pro tb-sm-res-d-n dk-res-t-d-n">
-                            <h3 class="box-title">Python</h3>
-                            <ul class="list-inline two-part-sp">
-                                <li>
-                                    <div id="sparklinedash4"></div>
-                                </li>
-                                <li class="text-right graph-four-ctn"><i class="fa fa-level-down" aria-hidden="true"></i> <span class="text-danger"><span class="counter">18</span>%</span>
-                                </li>
-                            </ul>
-                        </div>
+                       <?php endwhile; else:?>
+                           <div>
+                               <h3>Aucun cours termine</h3>
+                           </div>
+                       <?php endif;?>
+
+<!--                        <div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 tb-sm-res-d-n dk-res-t-d-n">-->
+<!--                            <h3 class="box-title">CSS</h3>-->
+<!--                            <ul class="list-inline two-part-sp">-->
+<!--                                <li>-->
+<!--                                    <div id="sparklinedash2"></div>-->
+<!--                                </li>-->
+<!--                                <li class="text-right graph-two-ctn"><i class="fa fa-level-up" aria-hidden="true"></i> <span class="counter text-purple">3000</span></li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                        <div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 tb-sm-res-d-n dk-res-t-d-n">-->
+<!--                            <h3 class="box-title">JAVA</h3>-->
+<!--                            <ul class="list-inline two-part-sp">-->
+<!--                                <li>-->
+<!--                                    <div id="sparklinedash3"></div>-->
+<!--                                </li>-->
+<!--                                <li class="text-right graph-two-ctn"><i class="fa fa-level-down text-success" aria-hidden="true"></i> <span class="text-success"><span class="counter">50</span>%</span>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                        <div class="white-box analytics-info-cs table-dis-n-pro tb-sm-res-d-n dk-res-t-d-n">-->
+<!--                            <h3 class="box-title">Python</h3>-->
+<!--                            <ul class="list-inline two-part-sp">-->
+<!--                                <li>-->
+<!--                                    <div id="sparklinedash4"></div>-->
+<!--                                </li>-->
+<!--                                <li class="text-right graph-four-ctn"><i class="fa fa-level-down" aria-hidden="true"></i> <span class="text-danger"><span class="counter">18</span>%</span>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>
