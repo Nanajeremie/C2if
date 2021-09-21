@@ -2,6 +2,9 @@
 include("../../utilities/QueryBuilder.php");
 $obj = new QueryBuilder();
 // Recuperation du matricule de learner
+if(isset($_SESSION['IDUSER'])){
+    $id_user = $_SESSION['IDUSER'];
+}
 isset($_SESSION['IDUSER'])?
     $idLearner=$obj->Select('learner', array('MATRICULE'), array('IDUSER'=>$_SESSION['IDUSER']))->fetch()['MATRICULE']:$idLearner=1;
 
@@ -62,7 +65,7 @@ $subjects = $obj->Select('subject',[],[]);
                                 <div class="analytics-sparkle-line reso-mg-b-30 shadow">
                                     <div class="analytics-content">
                                         <h5><?=$progresse['COURSETITLE']?></h5>
-                                        <h2><span class="h5"> <a href="#">Continuer la lecture</a></span> <span class="tuition-fees">Progression</span></h2>
+                                        <h2><span class="h5"> <a href="readPDF.php?id_sub=<?=$progresse['IDSUBCRIPTION']?>&id_user=<?=$id_user?>">Continuer la lecture</a></span> <span class="tuition-fees">Progression</span></h2>
                                         <span class="text-primary"><?=$progresse['PROGRESS']?>%</span>
                                         <div class="progress m-b-0">
                                             <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="<?=$progresse['PROGRESS']==0?"width:1%":"width:".$progresse['PROGRESS']."%"?>;"> <span class="sr-only"><?=$progresse['PROGRESS']?>% Complete</span> </div>

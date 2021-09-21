@@ -26,7 +26,7 @@ if(isset($_SESSION['IDUSER'])){
         $id_course =$_GET['idCourse'];
         
     // on verify si llecteur n'est pas deja inscrit a ce cours
-    $targetLearner = $obj->Requete("SELECT * FROM subcription s, learner l WHERE s.MATRICULE=l.MATRICULE AND s.ACCEPT=2 AND s.ISDONE=0 AND l.IDUSER='".$id_user."' ");
+    $targetLearner = $obj->Requete("SELECT * FROM subcription s, learner l, course c WHERE s.MATRICULE=l.MATRICULE AND s.ACCEPT=2 AND s.IDCOURSE=c.IDCOURSE AND s.ISDONE=0 AND s.IDCOURSE='".$id_course."' AND l.IDUSER='".$id_user."'");
     if($getResp = $targetLearner->fetch()){
         Redirect('learner/');
     }else{
