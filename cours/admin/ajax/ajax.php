@@ -53,9 +53,17 @@ if(isset($_FILES['learner_img'])){
   echo json_encode($num);
 }
 
+// Insertion d'un inscrit
 if(isset($_POST['sus_key'])){
    extract($_POST);
-   $addLerner = $obj->Requete("INSERT INTO subcription(IDCOURSE,MATRICULE,AMOUNTPAID, SUBSCRIPTIONDATE,READINGPAGE,IMG,ADRESS,POSTAL,PAIEMENT_TYPE,COUNTRY,PROMO,PHONE) VALUES(10,'".$id_user."',$amount,'".$suscrip_date."',0,'".$file_name."','".$learner_address."','".$learner_postal."','".$payement_type."','".$learner_country."','non','".$learner_phone."')");
+   // On verifie si l'utilisateur n'a pas deja fait une inscription du cours et qui est en traitement
+   $checkExistSub = $obj->Requete("SELECT * FROM subcription WHERE MATRICULE ='".$id_user."'  AND IDCOURSE ='".$id_course."' AND ACCEPT !=2");
+   if($getEl = $checkExistSub->fetch()){
+      $updSub = $obj->Requete("UPDATE subcription SET IMG='".$file_name."',PAIEMENT_TYPE='".$payement_type."',PHONE='".$learner_phone."',SUBSCRIPTIONDATE='".$suscrip_date."',AMOUNTPAID='".$amount."',COUNTRY='".$learner_country."', ADRESS='".$learner_address."',POSTAL='".$learner_postal."',ACCEPT=1 WHERE IDSUBCRIPTION='".$getEl['IDSUBCRIPTION']."'");
+   }else{
+      $addLerner = $obj->Requete("INSERT INTO subcription(IDCOURSE,MATRICULE,AMOUNTPAID, SUBSCRIPTIONDATE,READINGPAGE,IMG,ADRESS,POSTAL,PAIEMENT_TYPE,COUNTRY,PROMO,PHONE) VALUES($id_course,'".$id_user."',$amount,'".$suscrip_date."',0,'".$file_name."','".$learner_address."','".$learner_postal."','".$payement_type."','".$learner_country."','non','".$learner_phone."')");
+   }
+  
    echo 1;
 }
 
@@ -92,6 +100,15 @@ if(isset($_POST['del_key'])){
    extract($_POST);
    $rejectPay = $obj->Requete("UPDATE subcription SET ACCEPT=0 WHERE IDSUBCRIPTION='".$del_id."'");
    echo 1;
+}
+
+// redirection ver le dashboard
+if(isset($_POST['check_pay'])){
+   extract($_POST);
+   $targetResp = $obj->Requete("SELECT * FROM subcription WHERE MATRICULE ='".$id_user."'  AND IDCOURSE ='".$id_course."' AND ISDONE=0");
+   if($getRest = $targetResp->fetch()){
+      if($getRest['ACCEPT']==2){Redirect("../../learner/index.php");}elseif($getRest['ACCEPT']==1){echo 1;} else{echo 0;};
+   }
 }
 
 ?>  

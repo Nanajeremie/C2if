@@ -24,21 +24,24 @@ if(isset($_SESSION['IDUSER'])){
     // @jeremie recuperation de l'id du cours
     if(isset($_GET['idCourse'])){
         $id_course =$_GET['idCourse'];
-    }
-
+        
+    // on verify si llecteur n'est pas deja inscrit a ce cours
+    $targetLearner = $obj->Requete("SELECT * FROM subcription s, learner l WHERE s.MATRICULE=l.MATRICULE AND s.ACCEPT=2 AND s.ISDONE=0 AND l.IDUSER='".$id_user."' ");
+    if($getResp = $targetLearner->fetch()){
+        Redirect('learner/');
+    }else{
     // on verifie s'il n'a pas des paiments innachever
     $check_Pay_No_Done = $obj->Requete("SELECT * FROM subcription s, learner l WHERE s.MATRICULE=l.MATRICULE AND s.ACCEPT!=2 AND l.IDUSER='".$id_user."'");
     
     // On verify s'il n'avait pas deja envoye la preuve du cours courant
-    $check_Current_Pay_No_Done = $obj->Requete("SELECT * FROM subcription s, learner l WHERE s.MATRICULE=l.MATRICULE AND s.ACCEPT=1 AND s.IDCOURSE='".$id_course."' AND l.IDUSER='".$id_user."'");
-    // var_dump($check_Current_Pay_No_Done->fetchAll());
-
+    $check_Current_Pay_No_Done = $obj->Requete("SELECT * FROM subcription s, learner l, course c, subject su WHERE s.MATRICULE=l.MATRICULE AND s.ACCEPT!=2 AND s.IDCOURSE=c.IDCOURSE AND c.IDSUBJECT=su.IDSUBJECT AND s.IDCOURSE='".$id_course."' AND l.IDUSER='".$id_user."'")->fetch();
+    
+    
     isset($_SESSION['IDUSER'])?
         $userInfo=$obj->Requete("SELECT * FROM learner, users
                                             WHERE learner.IDUSER=users.IDUSER
                                             AND users.IDUSER=".$_SESSION['IDUSER'])
         :$userInfo=null;
-
 
     isset($_GET['idCourse'])?
         $coursInfo=$obj->Requete("SELECT * FROM course, subject
@@ -46,7 +49,7 @@ if(isset($_SESSION['IDUSER'])){
                                             AND course.IDCOURSE=".$_GET['idCourse'])
         :$coursInfo=null;
 
-    
+
 ?>
 
 <!doctype html>
@@ -136,25 +139,27 @@ if(isset($_SESSION['IDUSER'])){
         $coursInfo=$coursInfo->fetch();
         ?>
             <form method="post" action="#" id="suscription-form">
+                <!-- Cet input permet de rediriger -->
+                <input type="text" name="last-part" id="last-part" value="<?=(isset($check_Current_Pay_No_Done['IMG']))?2:(isset($check_Current_Pay_No_Done['PHONE'])?1:0)?>" hidden>
                 <div class="row" id="back">
                     <div class="col-sm-12 col-md-5 col-lg-4">
                         <div class="card shadow mt-5 bg-danger border-light">
                             <div class="card-body bg-white ml-2">
                                 <div class="row mb-3">
-                                    <div class="col-12 text-danger uppercase mb-3 text-center font-weight-bold"><?=$coursInfo['SUBJECTNAME']?></div>
-                                    <div class="col-12 font-weight-bold mb-2"><?=$coursInfo['COURSETITLE']?></div>
-                                    <div class="col-12"> <i class="fa fa-clock fa-1x text-muted " aria-hidden="true"></i>  <?=$coursInfo['DURATION']?> de formation </div>
+                                    <div class="col-12 text-danger uppercase mb-3 text-center font-weight-bold"><?=isset($check_Current_Pay_No_Done['SUBJECTNAME'])?$check_Current_Pay_No_Done['SUBJECTNAME']:$coursInfo['SUBJECTNAME']?></div>
+                                    <div class="col-12 font-weight-bold mb-2"><?=isset($check_Current_Pay_No_Done['COURSETITLE'])?$check_Current_Pay_No_Done['COURSETITLE']:$coursInfo['COURSETITLE']?></div>
+                                    <div class="col-12"> <i class="fa fa-clock fa-1x text-muted " aria-hidden="true"></i> <?=isset($check_Current_Pay_No_Done['DURATION'])?$check_Current_Pay_No_Done['DURATION']:$coursInfo['DURATION']?> de formation </div>
                                     <div class="col-12"> <i class="fa fa-book fa-1x text-muted" aria-hidden="true"></i>  Vous devez faire des devoir pour valider </div>
-                                    <div class="col-12"> <i class="fa fa-graduation-cap fa-1x text-muted" aria-hidden="true"></i> niveau <?=$coursInfo['LEVEL']?></div>
+                                    <div class="col-12"> <i class="fa fa-graduation-cap fa-1x text-muted" aria-hidden="true"></i> niveau <?=isset($check_Current_Pay_No_Done['DURATION'])?$check_Current_Pay_No_Done['LEVEL']:$coursInfo['LEVEL']?></div>
                                 </div>
                                 <hr class=" bg-danger" style="width:100%; height:1px;">
                                 <div class="row">
-                                    <div class="col-12 text-dark font-weight-bold"><?php echo $curretDate?></div>
+                                    <div class="col-12 text-dark font-weight-bold"><?=isset($check_Current_Pay_No_Done['SUBSCRIPTIONDATE'])?convertDate($check_Current_Pay_No_Done['SUBSCRIPTIONDATE'],'j F Y'):$curretDate?></div>
                                     <div class="col-12  text-muted">Votre formation commence aujourd'hui</div>
                                 </div>
                                 <hr class=" bg-danger">
                                 <div class="row">
-                                    <div class="col-12 text-dark font-weight-bold"><?=$coursInfo['AMOUNT']?> Fcfa</div>
+                                    <div class="col-12 text-dark font-weight-bold"><?=isset($check_Current_Pay_No_Done['AMOUNT'])?$check_Current_Pay_No_Done['AMOUNT']:$coursInfo['AMOUNT']?> Fcfa</div>
                                     <div class="col-12  text-muted">Vous pouvez annuler l'abonnement</div>
                                 </div>
                             </div>
@@ -168,38 +173,38 @@ if(isset($_SESSION['IDUSER'])){
                                     <div class="col-12 mt-4">
                                         <div class="row">
                                             <div class="input-group col-sm-12 col-md-6 mb-3">
-                                                <input type="text" name="id_user" id="id-user" value="<?php echo $userInfo['MATRICULE']?>" hidden>
+                                                <input type="text" name="id_user" id="id-user" value="<?=isset($check_Current_Pay_No_Done['MATRICULE'])?$check_Current_Pay_No_Done['MATRICULE']:$userInfo['MATRICULE']?>" hidden>
                                                 <input type="text" name=" id_course" id="id-course" value="<?php echo $id_course?>" hidden >
-                                                <input value="<?=$userInfo['LASTNAME']?>" name="learner-lname" type="text" id="learner-name" class="form-control" placeholder="Nom" readonly>
+                                                <input value="<?=isset($check_Current_Pay_No_Done['LASTNAME'])?$check_Current_Pay_No_Done['LASTNAME']:$userInfo['LASTNAME']?>" name="learner-lname" type="text" id="learner-name" class="form-control" placeholder="Nom" readonly>
                                             </div>
                                             <div class="input-group col-sm-12 col-md-6 mb-3">
-                                                <input value="<?=$userInfo['LEARNERFIRSTNAME']?>" type="text" name="learner-fame" id="learner-fame" class="form-control" placeholder="Prenom" readonly>
+                                                <input value="<?=isset($check_Current_Pay_No_Done['LEARNERFIRSTNAME'])?$check_Current_Pay_No_Done['LEARNERFIRSTNAME']:$userInfo['LEARNERFIRSTNAME']?>" type="text" name="learner-fame" id="learner-fame" class="form-control" placeholder="Prenom" readonly>
                                             </div>
                                             <div class="input-group col-sm-12 col-md-6 mb-3">
-                                                <input value="<?=$userInfo['EMAIL']?>" type="email" class="form-control" name="learner-email" id="learner-email" placeholder="Email" readonly>
+                                                <input value="<?=isset($check_Current_Pay_No_Done['EMAIL'])?$check_Current_Pay_No_Done['EMAIL']:$userInfo['EMAIL']?>" type="email" class="form-control" name="learner-email" id="learner-email" placeholder="Email" readonly>
                                             </div>
                                             <div class="input-group col-sm-12 col-md-6 mb-3">
-                                                <input type="text" class="form-control" placeholder="Code postal" name="learner-postal" id="learner-postal">
+                                                <input type="text" class="form-control" placeholder="Code postal" name="learner-postal" id="learner-postal" value="<?=isset($check_Current_Pay_No_Done['POSTAL'])?$check_Current_Pay_No_Done['POSTAL']:''?>">
                                             </div>
                                             <div class="input-group col-sm-12 col-md-6 mb-3">
-                                                <input type="text" class="form-control" placeholder="Votre adresse" name="learner-address" id="learner-address">
+                                                <input type="text" class="form-control" placeholder="Votre adresse" name="learner-address" id="learner-address" value="<?=isset($check_Current_Pay_No_Done['ADRESS'])?$check_Current_Pay_No_Done['ADRESS']:''?>">
                                             </div>
                                             <div class=" col-sm-12 col-md-6 mb-3">
                                                 <Select class="input-group w-100" name="learner-country" id="learner-country">
-                                                    <option value="Pays" class="form-control">Selectionner votre pays</option>
+                                                    <option value="<?=isset($check_Current_Pay_No_Done['COUNTRY'])?$check_Current_Pay_No_Done['COUNTRY']:'Pays'?>" class="form-control"><?=isset($check_Current_Pay_No_Done['COUNTRY'])?$check_Current_Pay_No_Done['COUNTRY']:'Selectionner votre pays'?></option>
                                                     <option value="Burkina Faso" class="form-control">Burkina Faso</option>
                                                     <option value="Benin" class="form-control">Benin</option>
                                                 </Select>
                                             </div>
                                             <div class="input-group col-sm-12 col-md-6 mb-3">
-                                                <input type="number" class="form-control" placeholder="Telephonel" name="learner-phone" id="learner-phone">
+                                                <input type="number" class="form-control" placeholder="Telephonel" name="learner-phone" id="learner-phone" value="<?=isset($check_Current_Pay_No_Done['PHONE'])?$check_Current_Pay_No_Done['PHONE']:''?>">
                                             </div>
                                             <div class="input-group col-sm-12 col-md-6 mb-3">
                                                 <input type="text" name="learner-promo" id="learner-promo" class="form-control" placeholder="Code secret promo">
                                             </div>
                                             <hr>
                                             <div class="form-check-inline col-sm-12 col-md-12 mb-4 ml-3">
-                                                <input type="checkbox" class="form-check-input" name="learner-agree" id="learner-agree" value="1">Vous accepter les conditions d'utilisations
+                                                <input type="checkbox" class="form-check-input" name="learner-agree" id="learner-agree" value="1" <?=isset($check_Current_Pay_No_Done['IMG'])?'checked':''?>>Vous accepter les conditions d'utilisations
                                             </div>
                                             <div class="col-12" id="submitError"></div>
                                         </div>
@@ -214,9 +219,9 @@ if(isset($_SESSION['IDUSER'])){
                                 <div class="row mb-3">
                                     <div class="col-12 primeTxt uppercase mb-3 text-center font-weight-bold">Mode de paiement</div>
                                     <div class="col-12 font-weight-bold ">Conditions de paiement</div>
-                                    <div class="col-12"> <i class="fa fa-money-check fa-1x text-muted " aria-hidden="true"></i><b class="text-danger">Montant total: <?=$coursInfo['AMOUNT']?> Fcfa</b></div>
+                                    <div class="col-12"> <i class="fa fa-money-check fa-1x text-muted " aria-hidden="true"></i><b class="text-danger">Montant total: <?=isset($check_Current_Pay_No_Done['AMOUNT'])?$check_Current_Pay_No_Done['AMOUNT']:$coursInfo['AMOUNT']?> Fcfa</b></div>
                                 </div>
-                                <hr class=" primeBack" style="width:100%; height:1px;">
+                                <hr class="primeBack" style="width:100%; height:1px;">
                                 <div class="col-12 mb-2">Choisissez votre moyen de paiement </div>
                                 <div class="form-check">
                                     <label class="form-check-label">
@@ -229,23 +234,23 @@ if(isset($_SESSION['IDUSER'])){
                                     </label>
                                 </div>
                                 <hr class="primeBack">
-                                <div class="col-12 font-weight-bold">NB: verifier vos informations </div>
+                                <div class="col-12 font-weight-bold">NB: verifier vos informations</div>
                                 <div class="row mt-2">
                                     <div class="col-12 text-dark font-weight-bold text-right">
-                                        <button type="button" class="btn btn-secondary" data-toggle="collapse" data-parent="#accordion" onclick="checkAccount()" > Suivant</button>
+                                        <button type="button" class="btn btn-secondary" data-toggle="collapse" data-parent="#accordion" onclick="checkAccount()"> Suivant</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center" id="suite">
-                <div class="col-sm-12 col-md-5">
+                <div class="row justify-content-center" >
+                <div class="col-sm-12 col-md-5" id="suite">
                         <div class="card shadow mt-5 primeBack border-light">
                             <div class="card-body bg-white ml-2">
                                 <div class="row mb-3 justify-content-start">
                                     <div class="col-12 primeTxt uppercase mb-3 text-center font-weight-bold">Finaliser le paiement</div>
-                                    <div class="col-12"> <i class="fa fa-money-check fa-1x text-muted " aria-hidden="true"></i><b class="text-danger">Montant total: <?=$coursInfo['AMOUNT']?> Fcfa</b><input type="text" name="course-amount" id="course-amount" value="<?=$coursInfo['AMOUNT']?>" hidden><input type="text" name="souscript-date" id="souscript-date" value="<?=$simpleDate?>" hidden></div>
+                                    <div class="col-12"> <i class="fa fa-money-check fa-1x text-muted " aria-hidden="true"></i><b class="text-danger">Montant total: <?=$coursInfo['AMOUNT']?> Fcfa</b><input type="text" name="course-amount" id="course-amount" value="<?=isset($check_Current_Pay_No_Done['AMOUNT'])?$check_Current_Pay_No_Done['AMOUNT']:$coursInfo['AMOUNT']?>" hidden><input type="text" name="souscript-date" id="souscript-date" value="<?=$simpleDate?>" hidden></div>
                                 </div>
                                 <p class="col-12 mb-2">Pour valider votre paiement, veuillez faire un depot du montant ci-dessus sur le numero <b class="text-danger">+226 66 66 66 66</b> et prenez une capture d'ecran du message de confirmation ensuite vous selectionner l'image du caputre d'ecran en cliquant sur le button <b class="primeTxt ">Image de Confirmation</b>  en dessous et cliquer sur <b class="text-success">Valider</b> pour teminer</p>
                                 <div class="row mt-2">
@@ -254,8 +259,8 @@ if(isset($_SESSION['IDUSER'])){
                                         <div class="input-group">
                                             <div class="input-group-prepend col-12">
                                                 <button type="button" class=" btn primeBack text-white input-group-text"><label for="learner-validate-img">Image de Confirmation</label></button>
-                                                <input type="text" name="validate-img-name" id="validate-img-name"  class="w-100" placeholder="Pas de fichier" disabled>
-                                                <input type="file" name="learner-validate-img" id="learner-validate-img" class="form-control d-none "">
+                                                <input type="text" name="validate-img-name" id="validate-img-name"  class="w-100" placeholder="Pas de fichier" value="<?=isset($check_Current_Pay_No_Done['IMG'])?$check_Current_Pay_No_Done['IMG']:''?>" disabled>
+                                                <input type="file" name="learner-validate-img" id="learner-validate-img" class="form-control d-none" >
                                             </div>
                                         </div>
                                     </div>
@@ -265,7 +270,7 @@ if(isset($_SESSION['IDUSER'])){
                                                 <button type="button" class="btn btn-danger" onclick="{document.getElementById('suite').style.display='none';document.getElementById('back').style.display='flex' }" > Retour</button>
                                             </div>
                                             <div class="col-6 text-right">
-                                                <button  class="btn btn-success" type="button" onclick="uploadData()"> Valider</button>
+                                                <button  class="btn btn-success" type="button" onclick="goPayLast()"> Valider</button>
                                             </div>
                                         </div>
                                     </div>
@@ -274,19 +279,22 @@ if(isset($_SESSION['IDUSER'])){
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center d-none" id="start">
+                    <div class="row justify-content-center" id="start">
                         <div class="col-sm-12 col-md-5">
                             <div class="card shadow mt-5 primeBack border-light">
                                 <div class="card-body bg-white ml-2">
                                     <div class="row mb-3 justify-content-start">
                                         <div class="col-12 primeTxt uppercase mb-3 text-center font-weight-bold">Etape de confirmation</div>
                                     </div>
-                                    <p class="col-12 mb-2">Vous etes a la derniere etape. Veuillez patienter, votre preuve de paiement est en cours de verification.<br> Une fois la verification terminer, vous pouvez commencer la lecture juste en cliquant sur le button <strong class="text-danger">Commencer La lecture</strong></p>
+                                    <p class="col-12 mb-2" id="start-infos">Vous etes a la derniere etape. Veuillez patienter, votre preuve de paiement est en cours de verification.<br> Une fois la verification terminer, vous pouvez commencer la lecture juste en cliquant sur le button <strong class="text-success">Commencer</strong></p>
                                     <div class="row mt-2">
                                         <div class="col-12 text-dark font-weight-bold">
-                                            <div class="row mt-3 justify-content-center">
+                                            <div class="row mt-3 ">
+                                                <div class="col-6">
+                                                    <button  class="btn btn-secondary" type="button" onclick="goPayImage()"> Retour</button>
+                                                </div>
                                                 <div class="col-6 text-right">
-                                                    <button  class="btn btn-success" type="button" onclick="checkConfirm()"> Commencer la lecture</button>
+                                                    <button  class="btn btn-success" type="button" onclick="checkConfirm()"> Commencer</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -307,7 +315,10 @@ if(isset($_SESSION['IDUSER'])){
 
     </div>
 
-   <?php  include'footer2.php';} else{
+   <?php } }
+   else{Redirect('cours.php');}
+    include'footer2.php';} 
+    else{
        Redirect('index.php');
    }?>
 	<!-- JS here -->
@@ -348,7 +359,43 @@ if(isset($_SESSION['IDUSER'])){
         
         <script src="./assets/js/jquery.cycle.all.js"></script>
         <script type="text/javascript">
-            document.getElementById('suite').style.display='none';
+
+            $("#last-part").val()==2?part3():$("#last-part").val()==1?part2():$("#last-part").val()==0?part1():'';
+            
+
+            function part1(){
+                document.getElementById('suite').style.display='none';
+                document.getElementById('start').style.display='none';
+                document.getElementById('back').style.display='flex';
+            }
+            function part2(){
+                document.getElementById('back').style.display='none';
+                document.getElementById('suite').style.display='flex';
+                document.getElementById('start').style.display='none';
+            }
+            function part3(){
+                document.getElementById('back').style.display='none';
+                document.getElementById('suite').style.display='none';
+                document.getElementById('start').style.display='flex';
+            }
+
+            function goPayImage(){
+                part2();
+            }
+            function targetDashboard(){
+
+            }
+            function goPayLast(){
+                if($('#learner-validate-img')[0].files.length === 0 && $("#validate-img-name").val()==""){
+                    $("#validateError").html("Veuillez selectionner la preuve");
+                    $("#validateError").css('color','red');
+                }else if($('#learner-validate-img')[0].files.length === 0 && $("#validate-img-name").val()!=""){
+                    part3();
+                }else{
+                    uploadData();
+                    part3();
+                }
+            }
 
             // recupereration du nom de l'image 
             $("#learner-validate-img").change(function(even){
@@ -445,10 +492,9 @@ if(isset($_SESSION['IDUSER'])){
                                         learner_phone:learner_phone,
                                         file_name:response.message,
                                     }, function (donnees){
-                                        alert(response);
                                             if(donnees == 1){
                                                 document.getElementById("suscription-form").reset();
-                                                window.location.replace("http://localhost/C2if/cours/learner");
+                                                part3();
                                                 }
                                             else{
                                                 $("#validateError").html("Echec d'enregistrement");
@@ -469,16 +515,19 @@ if(isset($_SESSION['IDUSER'])){
             // Verification de la preuve de paiement
             function checkConfirm(){
                 $.post(
-                    'ajax/ajax.php', {
+                    'admin/ajax/ajax.php', {
                         check_pay:"sub_ref_key",
-                        id_user: id_user,
-                        suscrip_date:$("#souscript-date").val(),
+                         id_user :$("#id-user").val(),
+                         id_course :$("#id-course").val(),
                     },
                     function (donnees){
-
-                    //    $("#subBody").html(donnees);
+                        if(donnees==1){
+                            $("#start-infos").html('<span class="text-danger">Votre preuve de paiement est toujours en cours de verification.<br> Une fois la verification terminer, vous pouvez commencer la lecture juste en cliquant sur le button <strong class="text-success">Commencer</strong></span>');
+                        }else if(donnees==0){
+                            $("#start-infos").html('<span class="text-danger">Votre preuve de paiement a ete rejetee. Peut etre que vous n\'avez pas envoyee l\'argent ou la photo de la preuve est illisible cliquer sur le button <strong class="text-secondary">Retour</strong> pour renvoyer la preuve de paiement</span>');
+                        }
                     });
-            }
+                }
 
         </script>
     </body>
