@@ -24,7 +24,6 @@ if(isset($_SESSION['IDUSER'])){
         <title>Acceuil</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
 		<link rel="shortcut icon" type="image/x-icon" href="assets/img/logo.jpg">
 
 		<!-- CSS here -->
@@ -42,8 +41,7 @@ if(isset($_SESSION['IDUSER'])){
             <link rel="stylesheet" href="assets/css/style.css">
             <link rel="stylesheet" href="assets/css/main.css">
             <link rel="stylesheet" href="Opensch_final_version\Web-Application-Coding\assets\css\style.css">
-        
-   </head>
+        </head>
 
    <body>
      
@@ -59,9 +57,7 @@ if(isset($_SESSION['IDUSER'])){
             </div>
         </div>
     </div>
-	      
     <!-- Preloader Start -->
-
     <header>
         <!-- Header Start -->
        <div class="header-area">
@@ -106,7 +102,7 @@ if(isset($_SESSION['IDUSER'])){
                 <div class="card-header ">
                         <div class="row">
                             <div class="col-12">
-                                <p class="text-center">Veuillez chosir une categorie pour vour la liste des cours disponible</p>
+                                <p class="text-center"> Veuillez chosir une categorie pour vour la liste des cours disponible</p>
                             </div>
                             <?php while ($subject=$subjects->fetch()): ?>
                             <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-3">
@@ -121,7 +117,7 @@ if(isset($_SESSION['IDUSER'])){
                         <?php if(is_object($courses)):?>
                         <div class="row">
                             <?php while($course=$courses->fetch()): $matiere=$obj->Select('subject',[],['IDSUBJECT'=>$course['IDSUBJECT']])->fetch();?>
-                                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                                <div class="col-12 col-sm-6 col-md-3 col-lg-2 mb-3">
                                 <div class="card border border-primary shadow ">
                                     <div class="card-body ">
                                         <div class="row justify-content-center">
@@ -137,24 +133,21 @@ if(isset($_SESSION['IDUSER'])){
                                         <div class="row small">
                                             <div class="col-12 ">
                                                 <div class="row">
-                                                    <div class="col-4"><Strong>Durée: </Strong></div>
-                                                    <div class="col-8"><?=isset($course['DURATION'])?$course['DURATION'].' jours':'Indefinie'?> </div>
+                                                    <div class=""><Strong>Durée:  </Strong><?=isset($course['DURATION'])?$course['DURATION'].' jours':'Indefinie'?></div>
                                                 </div>
                                             </div>
                                             <div class="col-12 ">
                                                 <div class="row">
-                                                    <div class="col-4"><Strong>Prix: </Strong></div>
-                                                    <div class="col-8"><?=$course['AMOUNT']?> Fcfa</div>
+                                                    <div class=""><Strong>Prix: </Strong><?=$course['AMOUNT']?> Fcfa</div>
                                                 </div>
                                             </div>
                                             <div class="col-12 ">
                                                 <div class="row">
-                                                    <div class="col-4"><Strong>Niveau: </Strong></div>
-                                                    <div class="col-8"><?=$course['LEVEL']?></div>
+                                                    <div class=""><Strong>Niveau: </Strong><?=$course['LEVEL']?></div>
                                                 </div>
                                             </div>
                                             <div class="col-12 mt-2 text-center">
-                                            <a href="../cours_details.php?idCourse=<?=$course['IDCOURSE']?>" class="btn btn-primary px-1 py-0  text-white"><i class="fa fa-eye  text-white " aria-hidden="true"></i> Suivre</a>
+                                            <a href="cours_details.php?idCourse=<?=$course['IDCOURSE']?>" class="btn btn-primary px-1 py-0  text-white"><i class="fa fa-eye  text-white " aria-hidden="true"></i> Suivre</a>
                                             </div>
                                         </div>
                                     </div>

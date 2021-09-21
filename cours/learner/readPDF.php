@@ -1,9 +1,17 @@
 <?php 
     include("../../utilities/QueryBuilder.php");
     $obj = new QueryBuilder();
-    $coursesFollowed = $obj->Select( $table = 'course c, subcription s, learner l', $columns = array(), $status = array('l.MATRICULE'=>'s.MATRICULE', 's.IDCOURSE'=>'c.IDCOURSE'), $orderBy = '', $order = 1);
-    //var_dump($coursesFollowed->fetch());
+    $idCourse = 10;
+    $idSub = 10;
+    $matricule = "learner120210908";
+    $coursesFollowed = $obj->Select( $table = 'course c, subcription s, learner l', $columns = array(), $status = array('l.MATRICULE'=>'s.MATRICULE', 's.IDCOURSE'=>'c.IDCOURSE', "s.MATRICULE"=>$matricule), $orderBy = '', $order = 1);
+    
 ?>
+<script>
+    var idCourse = <?=json_encode($idCourse)?>;
+    var matricule = <?=json_encode($matricule)?>;
+    var idSub = <?=json_encode($idSub)?>;
+</script>
 
 <!doctype html>
 <html class="no-js" lang="zxx">
@@ -23,6 +31,7 @@
             <link rel="stylesheet" href="../assets/css/main.css">
             <!--<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.9.359/build/pdf.min.js"></script>-->
             <script src="./build/pdf.js"></script>
+            <script src="../assets/js/jquery-3.4.0.min.js"></script>
     </head>
 
     <body>
@@ -33,19 +42,23 @@
                 <div class="col-2 bg-dark text-white pt-4">
                     <div style="">
                     <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-12 col-md-6 mb-3">
-                                <button class="btn btn-danger" id="prece">Precedent</button>
+                        
+                        <form method="post" id="form_reader">
+                            <div class="row">
+                                <div class="col-12 col-md-6 mb-3">
+                                    <button class="btn btn-danger" id="prece">Precedent</button>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <button class="btn btn-success" id="suiv">Suivant</button>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <span id="page-info">
+                                        Pages<span id="init"></span> sur <span id="total">0</span>
+                                    </span>
+                                </div>
                             </div>
-                            <div class="col-12 col-md-6">
-                            <button class="btn btn-success" id="suiv">Suivant</button>
-                            </div>
-                            <div class="col-12 mt-4">
-                                <span id="page-info">
-                                Pages<span id="init"></span> sur <span id="total">0</span>
-                                </span>
-                            </div>
-                        </div>
+                        </form>
+                            
                         <div class="row mt-5">
                             <div class="col-12">
                                 <h6>Progression de lecture</h6>

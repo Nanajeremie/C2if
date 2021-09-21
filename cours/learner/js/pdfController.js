@@ -11,7 +11,7 @@ let pdfDoc = null,
     pageIsRendering = false,
     pageNumIsPending = null;
 
-const scale  = 1,
+const scale  = 1.5
     canvas = document.querySelector('#pdf-render'),
     ctx = canvas.getContext('2d');
 
@@ -71,11 +71,12 @@ const next = ()=>{
 const setPercentage = (pageNum)=>
 {
     var percentage = (pageNum) * 100 / numPages
-    progressBar.innerHTML = percentage
+    progressBar.innerHTML = Math.round(percentage)
     progressBar.style.width = percentage+'%'
     init.innerHTML = pageNum
     total.innerHTML = numPages
-    console.log(progressBar);
+    /////////////////////////////
+
 }
 
 // Get document
@@ -85,6 +86,23 @@ numPages = pdfDoc.numPages
 setPercentage(pageNum);
 renderPage(pageNum);
 });
+
+///whe the reading oage is changed
+$('#form_reader').submit(
+    (e)=>
+    {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: './js/ajax_data.php',
+            data: 'page='+pageNum+'&matricule='+matricule+"&idCourse="+idCourse+'&idSub='+idSub,
+            success: function(response)
+            {
+                console.log(response)
+            }
+        })
+    }
+)
 
 document.querySelector("#suiv").addEventListener('click',next);
 document.querySelector("#prece").addEventListener('click', prev);
