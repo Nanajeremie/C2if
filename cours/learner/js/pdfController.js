@@ -13,8 +13,9 @@ function currentFile(){
         pageNum = 1,
         pageIsRendering = false,
         pageNumIsPending = null;
-
-    const scale  = 1.2;
+    
+        const scale  = 2;
+        console.log(scale)
         canvas = document.querySelector('#pdf-render'),
         ctx = canvas.getContext('2d');
 
@@ -109,4 +110,108 @@ function currentFile(){
 
     document.querySelector("#suiv").addEventListener('click',next);
     document.querySelector("#prece").addEventListener('click', prev);
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+     // Recuperation des duimension de l'ecran du visiteur
+     let deviceScrenne = window.screen;
+     let deviceHeight = deviceScrenne.availHeight;
+     let deviceWidth = deviceScrenne.availWidth;
+     // recuperation des dimensions du canvas
+     let canvasDim = document.getElementById("pdf-render");
+     let canWidth = canvasDim.offsetWidth;
+     let canHeight = canvasDim.offsetHeight;
+     //course infos
+     let courseInfoFrame = document.querySelector(".courseDetail");
+     let coursCanvasFrame = document.querySelector(".coursCanvas");
+     let otherCoursFrame = document.querySelector(".otherCours");
+     // current cours card 
+     let currentCourseCard = document.querySelector("#currentCourse");
+
+     // container principal
+     let mainFrame = document.querySelector(".mainFrame");
+     // mainFrame.style.width="100%";
+
+     // alert("Height= "+deviceHeight+" width= "+deviceWidth);
+     document.body.style.backgroundColor="#6c757d";
+
+     // ecran tres large
+     function myFunction(x) {
+         if (x.matches) { // If media query matches
+             courseInfoFrame.style.width="30%";
+             courseInfoFrame.style.height=deviceHeight+"px";
+             courseInfoFrame.style.position="fixed";
+
+             canvasDim.style.width = "800px";
+             canvasDim.style.height = deviceHeight+"px";
+
+
+             coursCanvasFrame.style.width="80%";
+             coursCanvasFrame.style.marginLeft="400px"
+             coursCanvasFrame.style.height="1050px";
+
+         } else {
+                // ecran mobile
+             function mediumFunction(x1) {
+                 if (x1.matches) { 
+                      courseInfoFrame.style.display="none";
+                     
+                                 // courseInfoFrame.style.position="fixed";
+                                 // courseInfoFrame.style.height=deviceHeight+"px";
+                                 // currentCourseCard.classList.remove('col-4');
+                                 // currentCourseCard.classList.add('col-5');
+                                 // currentCourseCard.style.backgroundColor = "yellow";
+                                 
+                                 canvasDim.style.width = "400px";
+                                 canvasDim.style.height = (deviceHeight-100)+"px";
+
+                                 coursCanvasFrame.style.width="200px";
+                                 coursCanvasFrame.style.marginLeft="30%"
+                                 coursCanvasFrame.style.height="800px";
+                                 $(".coursCanvas").css('justify-content','center')
+
+                                //  alert("Height= "+deviceHeight+" width= "+deviceWidth)
+
+                     
+                 } else {
+                          // ecran medium 
+                         function mobileFunction(x2) {
+                             if (x2.matches) { 
+                                // If media query matches
+                                 courseInfoFrame.style.position="fixed";
+                                 courseInfoFrame.style.height=deviceHeight+"px";
+                                 currentCourseCard.classList.remove('col-4');
+                                 currentCourseCard.classList.add('col-5');
+                                 currentCourseCard.style.backgroundColor = "yellow";
+
+                                 canvasDim.style.width = "600px";
+                                 canvasDim.style.height = deviceHeight+"px";
+
+
+
+                                 coursCanvasFrame.style.width="800px";
+                                 coursCanvasFrame.style.marginLeft="400px"
+                                 coursCanvasFrame.style.height="800px";
+                             } else {
+                                 currentCourseCard.style.backgroundColor = "green";
+                             }
+                         }
+                         var x2 = window.matchMedia("(max-width: 1499px)");
+                         mobileFunction(x2);
+                         x2.addListener(mobileFunction);
+                     }
+                 }
+                 var x1 = window.matchMedia("(max-width: 900px)");
+                 mediumFunction(x1);
+                 x1.addListener(mediumFunction);
+             }
+
+         }
+
+         var x = window.matchMedia("(min-width: 1499px)")
+         myFunction(x) // Call listener function at run time
+         x.addListener(myFunction) // Attach listener function on state changes
+
+
 }
