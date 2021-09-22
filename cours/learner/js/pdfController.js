@@ -14,7 +14,7 @@ function currentFile(){
         pageIsRendering = false,
         pageNumIsPending = null;
 
-    const scale  = 2
+    const scale  = 1.2;
         canvas = document.querySelector('#pdf-render'),
         ctx = canvas.getContext('2d');
 
